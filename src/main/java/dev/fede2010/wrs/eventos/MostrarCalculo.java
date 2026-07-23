@@ -20,14 +20,18 @@ public class MostrarCalculo {
 
     public static float damageOriginal;
     public static double slashDamage;
-    public static double bludgeonDamage;
+    public static double strikeDamage;
     public static double pierceDamage;
-    public static double arcaneDamage;
     public static double fireDamage;
     public static double iceDamage;
-    public static double electricDamage;
+    public static double lightingDamage;
+    public static double aquaDamage;
     public static double holyDamage;
-    public static double darkDamage;
+    public static double enderDamage;
+    public static double bloodDamage;
+    public static double evocationDamage;
+    public static double natureDamage;
+    public static double eldritchDamage;
     public static double damageModificado;
 
     @SubscribeEvent
@@ -38,14 +42,18 @@ public class MostrarCalculo {
 
                 mensaje(atacante, Wrs.MODID + ".initial_damage", damageOriginal, ChatFormatting.GREEN);
                 mensaje(atacante, Wrs.MODID + ".value.slash", slashDamage, ChatFormatting.GRAY);
-                mensaje(atacante, Wrs.MODID + ".value.bludgeon", bludgeonDamage, ChatFormatting.GRAY);
+                mensaje(atacante, Wrs.MODID + ".value.strike", strikeDamage, ChatFormatting.GRAY);
                 mensaje(atacante, Wrs.MODID + ".value.pierce", pierceDamage, ChatFormatting.GRAY);
-                mensaje(atacante, Wrs.MODID + ".value.arcane", arcaneDamage, ChatFormatting.GRAY);
                 mensaje(atacante, Wrs.MODID + ".value.fire", fireDamage, ChatFormatting.RED);
                 mensaje(atacante, Wrs.MODID + ".value.ice", iceDamage, ChatFormatting.AQUA);
-                mensaje(atacante, Wrs.MODID + ".value.electric", electricDamage, ChatFormatting.YELLOW);
+                mensaje(atacante, Wrs.MODID + ".value.lighting", lightingDamage, ChatFormatting.YELLOW);
+                mensaje(atacante, Wrs.MODID + ".value.aqua", aquaDamage, ChatFormatting.BLUE);
                 mensaje(atacante, Wrs.MODID + ".value.holy", holyDamage, ChatFormatting.WHITE);
-                mensaje(atacante, Wrs.MODID + ".value.dark", darkDamage, ChatFormatting.DARK_GRAY);
+                mensaje(atacante, Wrs.MODID + ".value.ender", enderDamage, ChatFormatting.DARK_PURPLE);
+                mensaje(atacante, Wrs.MODID + ".value.blood", bloodDamage, ChatFormatting.DARK_RED);
+                mensaje(atacante, Wrs.MODID + ".value.evocation", evocationDamage, ChatFormatting.LIGHT_PURPLE);
+                mensaje(atacante, Wrs.MODID + ".value.nature", natureDamage, ChatFormatting.GREEN);
+                mensaje(atacante, Wrs.MODID + ".value.eldritch", eldritchDamage, ChatFormatting.DARK_GREEN);
                 mensaje(atacante, Wrs.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
 
             }
@@ -62,14 +70,18 @@ public class MostrarCalculo {
 
                 mensaje(victima, Wrs.MODID + ".initial_damage", damageOriginal, ChatFormatting.GREEN);
                 mensaje(victima, Wrs.MODID + ".value.slash", slashDamage, ChatFormatting.GRAY);
-                mensaje(victima, Wrs.MODID + ".value.bludgeon", bludgeonDamage, ChatFormatting.GRAY);
+                mensaje(victima, Wrs.MODID + ".value.strike", strikeDamage, ChatFormatting.GRAY);
                 mensaje(victima, Wrs.MODID + ".value.pierce", pierceDamage, ChatFormatting.GRAY);
-                mensaje(victima, Wrs.MODID + ".value.arcane", arcaneDamage, ChatFormatting.GRAY);
                 mensaje(victima, Wrs.MODID + ".value.fire", fireDamage, ChatFormatting.RED);
                 mensaje(victima, Wrs.MODID + ".value.ice", iceDamage, ChatFormatting.AQUA);
-                mensaje(victima, Wrs.MODID + ".value.electric", electricDamage, ChatFormatting.YELLOW);
+                mensaje(victima, Wrs.MODID + ".value.lighting", lightingDamage, ChatFormatting.YELLOW);
+                mensaje(victima, Wrs.MODID + ".value.aqua", aquaDamage, ChatFormatting.BLUE);
                 mensaje(victima, Wrs.MODID + ".value.holy", holyDamage, ChatFormatting.WHITE);
-                mensaje(victima, Wrs.MODID + ".value.dark", darkDamage, ChatFormatting.DARK_GRAY);
+                mensaje(victima, Wrs.MODID + ".value.ender", enderDamage, ChatFormatting.DARK_PURPLE);
+                mensaje(victima, Wrs.MODID + ".value.blood", bloodDamage, ChatFormatting.DARK_RED);
+                mensaje(victima, Wrs.MODID + ".value.evocation", evocationDamage, ChatFormatting.LIGHT_PURPLE);
+                mensaje(victima, Wrs.MODID + ".value.nature", natureDamage, ChatFormatting.GREEN);
+                mensaje(victima, Wrs.MODID + ".value.eldritch", eldritchDamage, ChatFormatting.DARK_GREEN);
                 mensaje(victima, Wrs.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
             }
 
@@ -77,29 +89,37 @@ public class MostrarCalculo {
 
         damageOriginal = 0;
         slashDamage = 0;
-        bludgeonDamage = 0;
+        strikeDamage = 0;
         pierceDamage = 0;
-        arcaneDamage = 0;
         fireDamage = 0;
         iceDamage = 0;
-        electricDamage = 0;
+        lightingDamage = 0;
+        aquaDamage = 0;
         holyDamage = 0;
-        darkDamage = 0;
+        enderDamage = 0;
+        bloodDamage = 0;
+        evocationDamage = 0;
+        natureDamage = 0;
+        eldritchDamage = 0;
         damageModificado = 0;
 
     }
 
-    public static void obtenerDatos(float damageOriginal, double slashDamage, double bludgeonDamage, double pierceDamage, double arcaneDamage, double fireDamage, double iceDamage, double electricDamage, double holyDamage, double darkDamage, double damageModificado){
+    public static void obtenerDatos(float damageOriginal, double slashDamage, double strikeDamage, double pierceDamage, double fireDamage, double iceDamage, double lightingDamage, double aquaDamage, double holyDamage, double enderDamage, double bloodDamage, double evocationDamage, double natureDamage, double eldritchDamage, double damageModificado){
         MostrarCalculo.damageOriginal = damageOriginal;
         MostrarCalculo.slashDamage = slashDamage;
-        MostrarCalculo.bludgeonDamage = bludgeonDamage;
+        MostrarCalculo.strikeDamage = strikeDamage;
         MostrarCalculo.pierceDamage = pierceDamage;
-        MostrarCalculo.arcaneDamage = arcaneDamage;
         MostrarCalculo.fireDamage = fireDamage;
         MostrarCalculo.iceDamage = iceDamage;
-        MostrarCalculo.electricDamage = electricDamage;
+        MostrarCalculo.lightingDamage = lightingDamage;
+        MostrarCalculo.aquaDamage = aquaDamage;
         MostrarCalculo.holyDamage = holyDamage;
-        MostrarCalculo.darkDamage = darkDamage;
+        MostrarCalculo.enderDamage = enderDamage;
+        MostrarCalculo.bloodDamage = bloodDamage;
+        MostrarCalculo.evocationDamage = evocationDamage;
+        MostrarCalculo.natureDamage = natureDamage;
+        MostrarCalculo.eldritchDamage = eldritchDamage;
         MostrarCalculo.damageModificado = damageModificado;
     }
 

@@ -107,54 +107,70 @@ public class AgregarModificadorItem {
     }
 
     public static void crearModificador(ItemAttributeModifierEvent event, Map<Attribute, UUID> map, AtributosDataType data){
-
+        // Daño
         event.addModifier(Atributos.SLASH.get(), new AttributeModifier(map.get(Atributos.SLASH.get()), Atributos.SLASH.get() + ":" + event.getSlotType(), data.damage().getSlash(), AttributeModifier.Operation.ADDITION));
-        event.addModifier(Atributos.BLUDGEON.get(), new AttributeModifier(map.get(Atributos.BLUDGEON.get()), Atributos.BLUDGEON.get() + ":" + event.getSlotType(), data.damage().getBludgeon(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.STRIKE.get(), new AttributeModifier(map.get(Atributos.STRIKE.get()), Atributos.STRIKE.get() + ":" + event.getSlotType(), data.damage().getStrike(), AttributeModifier.Operation.ADDITION));
         event.addModifier(Atributos.PIERCE.get(), new AttributeModifier(map.get(Atributos.PIERCE.get()), Atributos.PIERCE.get() + ":" + event.getSlotType(), data.damage().getPierce(), AttributeModifier.Operation.ADDITION));
-        event.addModifier(Atributos.ARCANE.get(), new AttributeModifier(map.get(Atributos.ARCANE.get()), Atributos.ARCANE.get() + ":" + event.getSlotType(), data.damage().getArcane(), AttributeModifier.Operation.ADDITION));
         event.addModifier(Atributos.FIRE.get(), new AttributeModifier(map.get(Atributos.FIRE.get()), Atributos.FIRE.get() + ":" + event.getSlotType(), data.damage().getFire(), AttributeModifier.Operation.ADDITION));
         event.addModifier(Atributos.ICE.get(), new AttributeModifier(map.get(Atributos.ICE.get()), Atributos.ICE.get() + ":" + event.getSlotType(), data.damage().getIce(), AttributeModifier.Operation.ADDITION));
-        event.addModifier(Atributos.ELECTRIC.get(), new AttributeModifier(map.get(Atributos.ELECTRIC.get()), Atributos.ELECTRIC.get() + ":" + event.getSlotType(), data.damage().getElectric(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.LIGHTING.get(), new AttributeModifier(map.get(Atributos.LIGHTING.get()), Atributos.LIGHTING.get() + ":" + event.getSlotType(), data.damage().getLighting(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.AQUA.get(), new AttributeModifier(map.get(Atributos.AQUA.get()), Atributos.AQUA.get() + ":" + event.getSlotType(), data.damage().getAqua(), AttributeModifier.Operation.ADDITION));
         event.addModifier(Atributos.HOLY.get(), new AttributeModifier(map.get(Atributos.HOLY.get()), Atributos.HOLY.get() + ":" + event.getSlotType(), data.damage().getHoly(), AttributeModifier.Operation.ADDITION));
-        event.addModifier(Atributos.DARK.get(), new AttributeModifier(map.get(Atributos.DARK.get()), Atributos.DARK.get() + ":" + event.getSlotType(), data.damage().getDark(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.ENDER.get(), new AttributeModifier(map.get(Atributos.ENDER.get()), Atributos.ENDER.get() + ":" + event.getSlotType(), data.damage().getEnder(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.BLOOD.get(), new AttributeModifier(map.get(Atributos.BLOOD.get()), Atributos.BLOOD.get() + ":" + event.getSlotType(), data.damage().getBlood(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.EVOCATION.get(), new AttributeModifier(map.get(Atributos.EVOCATION.get()), Atributos.EVOCATION.get() + ":" + event.getSlotType(), data.damage().getEvocation(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.NATURE.get(), new AttributeModifier(map.get(Atributos.NATURE.get()), Atributos.NATURE.get() + ":" + event.getSlotType(), data.damage().getNature(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.ELDRITCH.get(), new AttributeModifier(map.get(Atributos.ELDRITCH.get()), Atributos.ELDRITCH.get() + ":" + event.getSlotType(), data.damage().getEldritch(), AttributeModifier.Operation.ADDITION));
 
+        // Resistencias
         event.addModifier(Atributos.SLASH_RESIST.get(), new AttributeModifier(map.get(Atributos.SLASH_RESIST.get()), Atributos.SLASH_RESIST.get() + ":" + event.getSlotType(), data.resistance().getSlash(), AttributeModifier.Operation.ADDITION));
-        event.addModifier(Atributos.BLUDGEON_RESIST.get(), new AttributeModifier(map.get(Atributos.BLUDGEON_RESIST.get()), Atributos.BLUDGEON_RESIST.get() + ":" + event.getSlotType(), data.resistance().getBludgeon(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.STRIKE_RESIST.get(), new AttributeModifier(map.get(Atributos.STRIKE_RESIST.get()), Atributos.STRIKE_RESIST.get() + ":" + event.getSlotType(), data.resistance().getStrike(), AttributeModifier.Operation.ADDITION));
         event.addModifier(Atributos.PIERCE_RESIST.get(), new AttributeModifier(map.get(Atributos.PIERCE_RESIST.get()), Atributos.PIERCE_RESIST.get() + ":" + event.getSlotType(), data.resistance().getPierce(), AttributeModifier.Operation.ADDITION));
-        event.addModifier(Atributos.ARCANE_RESIST.get(), new AttributeModifier(map.get(Atributos.ARCANE_RESIST.get()), Atributos.ARCANE_RESIST.get() + ":" + event.getSlotType(), data.resistance().getArcane(), AttributeModifier.Operation.ADDITION));
         event.addModifier(Atributos.FIRE_RESIST.get(), new AttributeModifier(map.get(Atributos.FIRE_RESIST.get()), Atributos.FIRE_RESIST.get() + ":" + event.getSlotType(), data.resistance().getFire(), AttributeModifier.Operation.ADDITION));
         event.addModifier(Atributos.ICE_RESIST.get(), new AttributeModifier(map.get(Atributos.ICE_RESIST.get()), Atributos.ICE_RESIST.get() + ":" + event.getSlotType(), data.resistance().getIce(), AttributeModifier.Operation.ADDITION));
-        event.addModifier(Atributos.ELECTRIC_RESIST.get(), new AttributeModifier(map.get(Atributos.ELECTRIC_RESIST.get()), Atributos.ELECTRIC_RESIST.get() + ":" + event.getSlotType(), data.resistance().getElectric(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.LIGHTING_RESIST.get(), new AttributeModifier(map.get(Atributos.LIGHTING_RESIST.get()), Atributos.LIGHTING_RESIST.get() + ":" + event.getSlotType(), data.resistance().getLighting(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.AQUA_RESIST.get(), new AttributeModifier(map.get(Atributos.AQUA_RESIST.get()), Atributos.AQUA_RESIST.get() + ":" + event.getSlotType(), data.resistance().getAqua(), AttributeModifier.Operation.ADDITION));
         event.addModifier(Atributos.HOLY_RESIST.get(), new AttributeModifier(map.get(Atributos.HOLY_RESIST.get()), Atributos.HOLY_RESIST.get() + ":" + event.getSlotType(), data.resistance().getHoly(), AttributeModifier.Operation.ADDITION));
-        event.addModifier(Atributos.DARK_RESIST.get(), new AttributeModifier(map.get(Atributos.DARK_RESIST.get()), Atributos.DARK_RESIST.get() + ":" + event.getSlotType(), data.resistance().getDark(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.ENDER_RESIST.get(), new AttributeModifier(map.get(Atributos.ENDER_RESIST.get()), Atributos.ENDER_RESIST.get() + ":" + event.getSlotType(), data.resistance().getEnder(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.BLOOD_RESIST.get(), new AttributeModifier(map.get(Atributos.BLOOD_RESIST.get()), Atributos.BLOOD_RESIST.get() + ":" + event.getSlotType(), data.resistance().getBlood(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.EVOCATION_RESIST.get(), new AttributeModifier(map.get(Atributos.EVOCATION_RESIST.get()), Atributos.EVOCATION_RESIST.get() + ":" + event.getSlotType(), data.resistance().getEvocation(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.NATURE_RESIST.get(), new AttributeModifier(map.get(Atributos.NATURE_RESIST.get()), Atributos.NATURE_RESIST.get() + ":" + event.getSlotType(), data.resistance().getNature(), AttributeModifier.Operation.ADDITION));
+        event.addModifier(Atributos.ELDRITCH_RESIST.get(), new AttributeModifier(map.get(Atributos.ELDRITCH_RESIST.get()), Atributos.ELDRITCH_RESIST.get() + ":" + event.getSlotType(), data.resistance().getEldritch(), AttributeModifier.Operation.ADDITION));
     }
 
     public static void mapeo(Map<Attribute, UUID> map, ItemAttributeModifierEvent event) {
         if (map.isEmpty()) {
-
             String evento = event.getItemStack().getItem().getDescriptionId() + ":";
 
+            // Daño
             map.put(Atributos.SLASH.get(), UUID.nameUUIDFromBytes((evento + "SLASH").getBytes()));
-            map.put(Atributos.BLUDGEON.get(), UUID.nameUUIDFromBytes((evento + "BLUDGEON").getBytes()));
+            map.put(Atributos.STRIKE.get(), UUID.nameUUIDFromBytes((evento + "STRIKE").getBytes()));
             map.put(Atributos.PIERCE.get(), UUID.nameUUIDFromBytes((evento + "PIERCE").getBytes()));
-            map.put(Atributos.ARCANE.get(), UUID.nameUUIDFromBytes((evento + "ARCANE").getBytes()));
             map.put(Atributos.FIRE.get(), UUID.nameUUIDFromBytes((evento + "FIRE").getBytes()));
             map.put(Atributos.ICE.get(), UUID.nameUUIDFromBytes((evento + "ICE").getBytes()));
-            map.put(Atributos.ELECTRIC.get(), UUID.nameUUIDFromBytes((evento + "ELECTRIC").getBytes()));
+            map.put(Atributos.LIGHTING.get(), UUID.nameUUIDFromBytes((evento + "LIGHTING").getBytes()));
+            map.put(Atributos.AQUA.get(), UUID.nameUUIDFromBytes((evento + "AQUA").getBytes()));
             map.put(Atributos.HOLY.get(), UUID.nameUUIDFromBytes((evento + "HOLY").getBytes()));
-            map.put(Atributos.DARK.get(), UUID.nameUUIDFromBytes((evento + "DARK").getBytes()));
+            map.put(Atributos.ENDER.get(), UUID.nameUUIDFromBytes((evento + "ENDER").getBytes()));
+            map.put(Atributos.BLOOD.get(), UUID.nameUUIDFromBytes((evento + "BLOOD").getBytes()));
+            map.put(Atributos.EVOCATION.get(), UUID.nameUUIDFromBytes((evento + "EVOCATION").getBytes()));
+            map.put(Atributos.NATURE.get(), UUID.nameUUIDFromBytes((evento + "NATURE").getBytes()));
+            map.put(Atributos.ELDRITCH.get(), UUID.nameUUIDFromBytes((evento + "ELDRITCH").getBytes()));
 
+            // Resistencias
             map.put(Atributos.SLASH_RESIST.get(), UUID.nameUUIDFromBytes((evento + "SLASH_RESIST").getBytes()));
-            map.put(Atributos.BLUDGEON_RESIST.get(), UUID.nameUUIDFromBytes((evento + "BLUDGEON_RESIST").getBytes()));
+            map.put(Atributos.STRIKE_RESIST.get(), UUID.nameUUIDFromBytes((evento + "STRIKE_RESIST").getBytes()));
             map.put(Atributos.PIERCE_RESIST.get(), UUID.nameUUIDFromBytes((evento + "PIERCE_RESIST").getBytes()));
-            map.put(Atributos.ARCANE_RESIST.get(), UUID.nameUUIDFromBytes((evento + "ARCANE_RESIST").getBytes()));
             map.put(Atributos.FIRE_RESIST.get(), UUID.nameUUIDFromBytes((evento + "FIRE_RESIST").getBytes()));
             map.put(Atributos.ICE_RESIST.get(), UUID.nameUUIDFromBytes((evento + "ICE_RESIST").getBytes()));
-            map.put(Atributos.ELECTRIC_RESIST.get(), UUID.nameUUIDFromBytes((evento + "ELECTRIC_RESIST").getBytes()));
+            map.put(Atributos.LIGHTING_RESIST.get(), UUID.nameUUIDFromBytes((evento + "LIGHTING_RESIST").getBytes()));
+            map.put(Atributos.AQUA_RESIST.get(), UUID.nameUUIDFromBytes((evento + "AQUA_RESIST").getBytes()));
             map.put(Atributos.HOLY_RESIST.get(), UUID.nameUUIDFromBytes((evento + "HOLY_RESIST").getBytes()));
-            map.put(Atributos.DARK_RESIST.get(), UUID.nameUUIDFromBytes((evento + "DARK_RESIST").getBytes()));
-
+            map.put(Atributos.ENDER_RESIST.get(), UUID.nameUUIDFromBytes((evento + "ENDER_RESIST").getBytes()));
+            map.put(Atributos.BLOOD_RESIST.get(), UUID.nameUUIDFromBytes((evento + "BLOOD_RESIST").getBytes()));
+            map.put(Atributos.EVOCATION_RESIST.get(), UUID.nameUUIDFromBytes((evento + "EVOCATION_RESIST").getBytes()));
+            map.put(Atributos.NATURE_RESIST.get(), UUID.nameUUIDFromBytes((evento + "NATURE_RESIST").getBytes()));
+            map.put(Atributos.ELDRITCH_RESIST.get(), UUID.nameUUIDFromBytes((evento + "ELDRITCH_RESIST").getBytes()));
         }
-
     }
 }
