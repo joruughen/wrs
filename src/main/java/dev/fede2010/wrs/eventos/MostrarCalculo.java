@@ -41,17 +41,17 @@ public class MostrarCalculo {
             if (event.getSource().getEntity() instanceof ServerPlayer atacante) {
 
                 mensaje(atacante, Wrs.MODID + ".initial_damage", damageOriginal, ChatFormatting.GREEN);
-                mensaje(atacante, Wrs.MODID + ".value.slash", slashDamage, ChatFormatting.GRAY);
-                mensaje(atacante, Wrs.MODID + ".value.strike", strikeDamage, ChatFormatting.GRAY);
-                mensaje(atacante, Wrs.MODID + ".value.pierce", pierceDamage, ChatFormatting.GRAY);
-                mensaje(atacante, Wrs.MODID + ".value.fire", fireDamage, ChatFormatting.RED);
-                mensaje(atacante, Wrs.MODID + ".value.ice", iceDamage, ChatFormatting.AQUA);
-                mensaje(atacante, Wrs.MODID + ".value.lighting", lightingDamage, ChatFormatting.YELLOW);
+                mensaje(atacante, Wrs.MODID + ".value.slash", slashDamage, ChatFormatting.WHITE);
+                mensaje(atacante, Wrs.MODID + ".value.strike", strikeDamage, ChatFormatting.WHITE);
+                mensaje(atacante, Wrs.MODID + ".value.pierce", pierceDamage, ChatFormatting.WHITE);
+                mensaje(atacante, Wrs.MODID + ".value.fire", fireDamage, ChatFormatting.GOLD);
+                mensaje(atacante, Wrs.MODID + ".value.ice", iceDamage, ChatFormatting.DARK_AQUA);
+                mensaje(atacante, Wrs.MODID + ".value.lighting", lightingDamage, ChatFormatting.AQUA);
                 mensaje(atacante, Wrs.MODID + ".value.aqua", aquaDamage, ChatFormatting.BLUE);
-                mensaje(atacante, Wrs.MODID + ".value.holy", holyDamage, ChatFormatting.WHITE);
+                mensaje(atacante, Wrs.MODID + ".value.holy", holyDamage, ChatFormatting.YELLOW);
                 mensaje(atacante, Wrs.MODID + ".value.ender", enderDamage, ChatFormatting.DARK_PURPLE);
                 mensaje(atacante, Wrs.MODID + ".value.blood", bloodDamage, ChatFormatting.DARK_RED);
-                mensaje(atacante, Wrs.MODID + ".value.evocation", evocationDamage, ChatFormatting.LIGHT_PURPLE);
+                mensaje(atacante, Wrs.MODID + ".value.evocation", evocationDamage, ChatFormatting.GRAY);
                 mensaje(atacante, Wrs.MODID + ".value.nature", natureDamage, ChatFormatting.GREEN);
                 mensaje(atacante, Wrs.MODID + ".value.eldritch", eldritchDamage, ChatFormatting.DARK_GREEN);
                 mensaje(atacante, Wrs.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
@@ -69,17 +69,17 @@ public class MostrarCalculo {
                 }
 
                 mensaje(victima, Wrs.MODID + ".initial_damage", damageOriginal, ChatFormatting.GREEN);
-                mensaje(victima, Wrs.MODID + ".value.slash", slashDamage, ChatFormatting.GRAY);
-                mensaje(victima, Wrs.MODID + ".value.strike", strikeDamage, ChatFormatting.GRAY);
-                mensaje(victima, Wrs.MODID + ".value.pierce", pierceDamage, ChatFormatting.GRAY);
-                mensaje(victima, Wrs.MODID + ".value.fire", fireDamage, ChatFormatting.RED);
-                mensaje(victima, Wrs.MODID + ".value.ice", iceDamage, ChatFormatting.AQUA);
-                mensaje(victima, Wrs.MODID + ".value.lighting", lightingDamage, ChatFormatting.YELLOW);
+                mensaje(victima, Wrs.MODID + ".value.slash", slashDamage, ChatFormatting.WHITE);
+                mensaje(victima, Wrs.MODID + ".value.strike", strikeDamage, ChatFormatting.WHITE);
+                mensaje(victima, Wrs.MODID + ".value.pierce", pierceDamage, ChatFormatting.WHITE);
+                mensaje(victima, Wrs.MODID + ".value.fire", fireDamage, ChatFormatting.GOLD);
+                mensaje(victima, Wrs.MODID + ".value.ice", iceDamage, ChatFormatting.DARK_AQUA);
+                mensaje(victima, Wrs.MODID + ".value.lighting", lightingDamage, ChatFormatting.AQUA);
                 mensaje(victima, Wrs.MODID + ".value.aqua", aquaDamage, ChatFormatting.BLUE);
-                mensaje(victima, Wrs.MODID + ".value.holy", holyDamage, ChatFormatting.WHITE);
+                mensaje(victima, Wrs.MODID + ".value.holy", holyDamage, ChatFormatting.YELLOW);
                 mensaje(victima, Wrs.MODID + ".value.ender", enderDamage, ChatFormatting.DARK_PURPLE);
                 mensaje(victima, Wrs.MODID + ".value.blood", bloodDamage, ChatFormatting.DARK_RED);
-                mensaje(victima, Wrs.MODID + ".value.evocation", evocationDamage, ChatFormatting.LIGHT_PURPLE);
+                mensaje(victima, Wrs.MODID + ".value.evocation", evocationDamage, ChatFormatting.GRAY);
                 mensaje(victima, Wrs.MODID + ".value.nature", natureDamage, ChatFormatting.GREEN);
                 mensaje(victima, Wrs.MODID + ".value.eldritch", eldritchDamage, ChatFormatting.DARK_GREEN);
                 mensaje(victima, Wrs.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
