@@ -29,7 +29,7 @@ public record AtributosDataType(
         Optional<Double> pierce    = Optional.of(entidad.damage().pierce().orElse(grupo.damage().getPierce()));
         Optional<Double> fire      = Optional.of(entidad.damage().fire().orElse(grupo.damage().getFire()));
         Optional<Double> ice       = Optional.of(entidad.damage().ice().orElse(grupo.damage().getIce()));
-        Optional<Double> lighting  = Optional.of(entidad.damage().lighting().orElse(grupo.damage().getLighting()));
+        Optional<Double> lightning = Optional.of(entidad.damage().lightning().orElse(grupo.damage().getLightning()));
         Optional<Double> aqua      = Optional.of(entidad.damage().aqua().orElse(grupo.damage().getAqua()));
         Optional<Double> holy      = Optional.of(entidad.damage().holy().orElse(grupo.damage().getHoly()));
         Optional<Double> ender     = Optional.of(entidad.damage().ender().orElse(grupo.damage().getEnder()));
@@ -43,7 +43,7 @@ public record AtributosDataType(
         Optional<Double> pierceResist    = Optional.of(entidad.resistance().pierce().orElse(grupo.resistance().getPierce()));
         Optional<Double> fireResist      = Optional.of(entidad.resistance().fire().orElse(grupo.resistance().getFire()));
         Optional<Double> iceResist       = Optional.of(entidad.resistance().ice().orElse(grupo.resistance().getIce()));
-        Optional<Double> lightingResist  = Optional.of(entidad.resistance().lighting().orElse(grupo.resistance().getLighting()));
+        Optional<Double> lightningResist = Optional.of(entidad.resistance().lightning().orElse(grupo.resistance().getLightning()));
         Optional<Double> aquaResist      = Optional.of(entidad.resistance().aqua().orElse(grupo.resistance().getAqua()));
         Optional<Double> holyResist      = Optional.of(entidad.resistance().holy().orElse(grupo.resistance().getHoly()));
         Optional<Double> enderResist     = Optional.of(entidad.resistance().ender().orElse(grupo.resistance().getEnder()));
@@ -54,8 +54,8 @@ public record AtributosDataType(
 
         return new AtributosDataType(
                 List.of(),
-                new AtributosData(slash, strike, pierce, fire, ice, lighting, aqua, holy, ender, blood, evocation, nature, eldritch),
-                new AtributosData(slashResist, strikeResist, pierceResist, fireResist, iceResist, lightingResist, aquaResist, holyResist, enderResist, bloodResist, evocationResist, natureResist, eldritchResist)
+                new AtributosData(slash, strike, pierce, fire, ice, lightning, aqua, holy, ender, blood, evocation, nature, eldritch),
+                new AtributosData(slashResist, strikeResist, pierceResist, fireResist, iceResist, lightningResist, aquaResist, holyResist, enderResist, bloodResist, evocationResist, natureResist, eldritchResist)
         );
     }
 

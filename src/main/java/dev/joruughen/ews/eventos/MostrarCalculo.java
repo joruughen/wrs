@@ -24,7 +24,7 @@ public class MostrarCalculo {
     public static double pierceDamage;
     public static double fireDamage;
     public static double iceDamage;
-    public static double lightingDamage;
+    public static double lightningDamage;
     public static double aquaDamage;
     public static double holyDamage;
     public static double enderDamage;
@@ -46,7 +46,7 @@ public class MostrarCalculo {
                 mensaje(atacante, Ews.MODID + ".value.pierce", pierceDamage, ChatFormatting.WHITE);
                 mensaje(atacante, Ews.MODID + ".value.fire", fireDamage, ChatFormatting.GOLD);
                 mensaje(atacante, Ews.MODID + ".value.ice", iceDamage, ChatFormatting.DARK_AQUA);
-                mensaje(atacante, Ews.MODID + ".value.lighting", lightingDamage, ChatFormatting.AQUA);
+                mensaje(atacante, Ews.MODID + ".value.lightning", lightningDamage, ChatFormatting.AQUA);
                 mensaje(atacante, Ews.MODID + ".value.aqua", aquaDamage, ChatFormatting.BLUE);
                 mensaje(atacante, Ews.MODID + ".value.holy", holyDamage, ChatFormatting.YELLOW);
                 mensaje(atacante, Ews.MODID + ".value.ender", enderDamage, ChatFormatting.DARK_PURPLE);
@@ -74,7 +74,7 @@ public class MostrarCalculo {
                 mensaje(victima, Ews.MODID + ".value.pierce", pierceDamage, ChatFormatting.WHITE);
                 mensaje(victima, Ews.MODID + ".value.fire", fireDamage, ChatFormatting.GOLD);
                 mensaje(victima, Ews.MODID + ".value.ice", iceDamage, ChatFormatting.DARK_AQUA);
-                mensaje(victima, Ews.MODID + ".value.lighting", lightingDamage, ChatFormatting.AQUA);
+                mensaje(victima, Ews.MODID + ".value.lightning", lightningDamage, ChatFormatting.AQUA);
                 mensaje(victima, Ews.MODID + ".value.aqua", aquaDamage, ChatFormatting.BLUE);
                 mensaje(victima, Ews.MODID + ".value.holy", holyDamage, ChatFormatting.YELLOW);
                 mensaje(victima, Ews.MODID + ".value.ender", enderDamage, ChatFormatting.DARK_PURPLE);
@@ -93,7 +93,7 @@ public class MostrarCalculo {
         pierceDamage = 0;
         fireDamage = 0;
         iceDamage = 0;
-        lightingDamage = 0;
+        lightningDamage = 0;
         aquaDamage = 0;
         holyDamage = 0;
         enderDamage = 0;
@@ -105,14 +105,14 @@ public class MostrarCalculo {
 
     }
 
-    public static void obtenerDatos(float damageOriginal, double slashDamage, double strikeDamage, double pierceDamage, double fireDamage, double iceDamage, double lightingDamage, double aquaDamage, double holyDamage, double enderDamage, double bloodDamage, double evocationDamage, double natureDamage, double eldritchDamage, double damageModificado){
+    public static void obtenerDatos(float damageOriginal, double slashDamage, double strikeDamage, double pierceDamage, double fireDamage, double iceDamage, double lightningDamage, double aquaDamage, double holyDamage, double enderDamage, double bloodDamage, double evocationDamage, double natureDamage, double eldritchDamage, double damageModificado){
         MostrarCalculo.damageOriginal = damageOriginal;
         MostrarCalculo.slashDamage = slashDamage;
         MostrarCalculo.strikeDamage = strikeDamage;
         MostrarCalculo.pierceDamage = pierceDamage;
         MostrarCalculo.fireDamage = fireDamage;
         MostrarCalculo.iceDamage = iceDamage;
-        MostrarCalculo.lightingDamage = lightingDamage;
+        MostrarCalculo.lightningDamage = lightningDamage;
         MostrarCalculo.aquaDamage = aquaDamage;
         MostrarCalculo.holyDamage = holyDamage;
         MostrarCalculo.enderDamage = enderDamage;

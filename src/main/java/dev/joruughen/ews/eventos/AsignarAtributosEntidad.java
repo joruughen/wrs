@@ -43,9 +43,9 @@ public class AsignarAtributosEntidad {
         event.add(entidad, Atributos.ICE.get());
         event.add(entidad, Atributos.ICE_RESIST.get());
 
-        // Lighting
-        event.add(entidad, Atributos.LIGHTING.get());
-        event.add(entidad, Atributos.LIGHTING_RESIST.get());
+        // Lightning
+        event.add(entidad, Atributos.LIGHTNING.get());
+        event.add(entidad, Atributos.LIGHTNING_RESIST.get());
 
         // Aqua
         event.add(entidad, Atributos.AQUA.get());

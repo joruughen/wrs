@@ -41,7 +41,7 @@ public enum WRSEntityComponentProvider implements IEntityComponentProvider, ISer
             addTooltipAtributoAtaque(iTooltip, entityAccessor, Ews.MODID + ".value.pierce", "Pierce", new ItemStack(Items.ARROW));
             addTooltipAtributoAtaque(iTooltip, entityAccessor, Ews.MODID + ".value.fire", "Fire", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:healing");
             addTooltipAtributoAtaque(iTooltip, entityAccessor, Ews.MODID + ".value.ice", "Ice", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:long_swiftness");
-            addTooltipAtributoAtaque(iTooltip, entityAccessor, Ews.MODID + ".value.lighting", "Lighting", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:long_fire_resistance");
+            addTooltipAtributoAtaque(iTooltip, entityAccessor, Ews.MODID + ".value.lightning", "Lightning", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:long_fire_resistance");
             addTooltipAtributoAtaque(iTooltip, entityAccessor, Ews.MODID + ".value.aqua", "Aqua", new ItemStack(Items.WATER_BUCKET));
             addTooltipAtributoAtaque(iTooltip, entityAccessor, Ews.MODID + ".value.holy", "Holy", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:invisibility");
             addTooltipAtributoAtaque(iTooltip, entityAccessor, Ews.MODID + ".value.ender", "Ender", new ItemStack(Items.ENDER_PEARL));
@@ -60,7 +60,7 @@ public enum WRSEntityComponentProvider implements IEntityComponentProvider, ISer
             addTooltipAtributoResistencia(iTooltip, entityAccessor, Ews.MODID + ".value.pierce_resist", "Pierce Resist", new ItemStack(Items.ARROW));
             addTooltipAtributoResistencia(iTooltip, entityAccessor, Ews.MODID + ".value.fire_resist", "Fire Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:healing");
             addTooltipAtributoResistencia(iTooltip, entityAccessor, Ews.MODID + ".value.ice_resist", "Ice Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:long_swiftness");
-            addTooltipAtributoResistencia(iTooltip, entityAccessor, Ews.MODID + ".value.lighting_resist", "Lighting Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:long_fire_resistance");
+            addTooltipAtributoResistencia(iTooltip, entityAccessor, Ews.MODID + ".value.lightning_resist", "Lightning Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:long_fire_resistance");
             addTooltipAtributoResistencia(iTooltip, entityAccessor, Ews.MODID + ".value.aqua_resist", "Aqua Resist", new ItemStack(Items.WATER_BUCKET));
             addTooltipAtributoResistencia(iTooltip, entityAccessor, Ews.MODID + ".value.holy_resist", "Holy Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:invisibility");
             addTooltipAtributoResistencia(iTooltip, entityAccessor, Ews.MODID + ".value.ender_resist", "Ender Resist", new ItemStack(Items.ENDER_PEARL));
@@ -77,7 +77,7 @@ public enum WRSEntityComponentProvider implements IEntityComponentProvider, ISer
             addTooltipAtributoDebilidad(iTooltip, entityAccessor, Ews.MODID + ".value.pierce_resist", "Pierce Resist", new ItemStack(Items.ARROW));
             addTooltipAtributoDebilidad(iTooltip, entityAccessor, Ews.MODID + ".value.fire_resist", "Fire Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:healing");
             addTooltipAtributoDebilidad(iTooltip, entityAccessor, Ews.MODID + ".value.ice_resist", "Ice Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:long_swiftness");
-            addTooltipAtributoDebilidad(iTooltip, entityAccessor, Ews.MODID + ".value.lighting_resist", "Lighting Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:long_fire_resistance");
+            addTooltipAtributoDebilidad(iTooltip, entityAccessor, Ews.MODID + ".value.lightning_resist", "Lightning Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:long_fire_resistance");
             addTooltipAtributoDebilidad(iTooltip, entityAccessor, Ews.MODID + ".value.aqua_resist", "Aqua Resist", new ItemStack(Items.WATER_BUCKET));
             addTooltipAtributoDebilidad(iTooltip, entityAccessor, Ews.MODID + ".value.holy_resist", "Holy Resist", new ItemStack(Items.LINGERING_POTION), "Potion", "minecraft:invisibility");
             addTooltipAtributoDebilidad(iTooltip, entityAccessor, Ews.MODID + ".value.ender_resist", "Ender Resist", new ItemStack(Items.ENDER_PEARL));
@@ -100,7 +100,7 @@ public enum WRSEntityComponentProvider implements IEntityComponentProvider, ISer
             AttributeInstance pierce = entity.getAttribute(Atributos.PIERCE.get());
             AttributeInstance fire = entity.getAttribute(Atributos.FIRE.get());
             AttributeInstance ice = entity.getAttribute(Atributos.ICE.get());
-            AttributeInstance lighting = entity.getAttribute(Atributos.LIGHTING.get());
+            AttributeInstance lightning = entity.getAttribute(Atributos.LIGHTNING.get());
             AttributeInstance aqua = entity.getAttribute(Atributos.AQUA.get());
             AttributeInstance holy = entity.getAttribute(Atributos.HOLY.get());
             AttributeInstance ender = entity.getAttribute(Atributos.ENDER.get());
@@ -114,7 +114,7 @@ public enum WRSEntityComponentProvider implements IEntityComponentProvider, ISer
             AttributeInstance pierceResist = entity.getAttribute(Atributos.PIERCE_RESIST.get());
             AttributeInstance fireResist = entity.getAttribute(Atributos.FIRE_RESIST.get());
             AttributeInstance iceResist = entity.getAttribute(Atributos.ICE_RESIST.get());
-            AttributeInstance lightingResist = entity.getAttribute(Atributos.LIGHTING_RESIST.get());
+            AttributeInstance lightningResist = entity.getAttribute(Atributos.LIGHTNING_RESIST.get());
             AttributeInstance aquaResist = entity.getAttribute(Atributos.AQUA_RESIST.get());
             AttributeInstance holyResist = entity.getAttribute(Atributos.HOLY_RESIST.get());
             AttributeInstance enderResist = entity.getAttribute(Atributos.ENDER_RESIST.get());
@@ -128,7 +128,7 @@ public enum WRSEntityComponentProvider implements IEntityComponentProvider, ISer
             if(pierce != null) compoundTag.putDouble("Pierce", pierce.getValue());
             if(fire != null) compoundTag.putDouble("Fire", fire.getValue());
             if(ice != null) compoundTag.putDouble("Ice", ice.getValue());
-            if(lighting != null) compoundTag.putDouble("Lighting", lighting.getValue());
+            if(lightning != null) compoundTag.putDouble("Lightning", lightning.getValue());
             if(aqua != null) compoundTag.putDouble("Aqua", aqua.getValue());
             if(holy != null) compoundTag.putDouble("Holy", holy.getValue());
             if(ender != null) compoundTag.putDouble("Ender", ender.getValue());
@@ -142,7 +142,7 @@ public enum WRSEntityComponentProvider implements IEntityComponentProvider, ISer
             if(pierceResist != null) compoundTag.putDouble("Pierce Resist", pierceResist.getValue());
             if(fireResist != null) compoundTag.putDouble("Fire Resist", fireResist.getValue());
             if(iceResist != null) compoundTag.putDouble("Ice Resist", iceResist.getValue());
-            if(lightingResist != null) compoundTag.putDouble("Lighting Resist", lightingResist.getValue());
+            if(lightningResist != null) compoundTag.putDouble("Lightning Resist", lightningResist.getValue());
             if(aquaResist != null) compoundTag.putDouble("Aqua Resist", aquaResist.getValue());
             if(holyResist != null) compoundTag.putDouble("Holy Resist", holyResist.getValue());
             if(enderResist != null) compoundTag.putDouble("Ender Resist", enderResist.getValue());

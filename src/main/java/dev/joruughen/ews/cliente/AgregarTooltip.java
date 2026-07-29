@@ -56,7 +56,7 @@ public class AgregarTooltip {
         agregarAtributo(event, Atributos.PIERCE.get().getDescriptionId(), ChatFormatting.WHITE, resultado.damage().getPierce());
         agregarAtributo(event, Atributos.FIRE.get().getDescriptionId(), ChatFormatting.GOLD, resultado.damage().getFire());
         agregarAtributo(event, Atributos.ICE.get().getDescriptionId(), ChatFormatting.DARK_AQUA, resultado.damage().getIce());
-        agregarAtributo(event, Atributos.LIGHTING.get().getDescriptionId(), ChatFormatting.AQUA, resultado.damage().getLighting());
+        agregarAtributo(event, Atributos.LIGHTNING.get().getDescriptionId(), ChatFormatting.AQUA, resultado.damage().getLightning());
         agregarAtributo(event, Atributos.AQUA.get().getDescriptionId(), ChatFormatting.BLUE, resultado.damage().getAqua());
         agregarAtributo(event, Atributos.HOLY.get().getDescriptionId(), ChatFormatting.YELLOW, resultado.damage().getHoly());
         agregarAtributo(event, Atributos.ENDER.get().getDescriptionId(), ChatFormatting.DARK_PURPLE, resultado.damage().getEnder());
@@ -71,7 +71,7 @@ public class AgregarTooltip {
         agregarAtributo(event, Atributos.PIERCE_RESIST.get().getDescriptionId(), ChatFormatting.WHITE, resultado.resistance().getPierce());
         agregarAtributo(event, Atributos.FIRE_RESIST.get().getDescriptionId(), ChatFormatting.GOLD, resultado.resistance().getFire());
         agregarAtributo(event, Atributos.ICE_RESIST.get().getDescriptionId(), ChatFormatting.DARK_AQUA, resultado.resistance().getIce());
-        agregarAtributo(event, Atributos.LIGHTING_RESIST.get().getDescriptionId(), ChatFormatting.AQUA, resultado.resistance().getLighting());
+        agregarAtributo(event, Atributos.LIGHTNING_RESIST.get().getDescriptionId(), ChatFormatting.AQUA, resultado.resistance().getLightning());
         agregarAtributo(event, Atributos.AQUA_RESIST.get().getDescriptionId(), ChatFormatting.BLUE, resultado.resistance().getAqua());
         agregarAtributo(event, Atributos.HOLY_RESIST.get().getDescriptionId(), ChatFormatting.YELLOW, resultado.resistance().getHoly());
         agregarAtributo(event, Atributos.ENDER_RESIST.get().getDescriptionId(), ChatFormatting.DARK_PURPLE, resultado.resistance().getEnder());

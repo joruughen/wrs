@@ -31,7 +31,7 @@ public class CalcularDamage {
         double pierceDamage;
         double fireDamage;
         double iceDamage;
-        double lightingDamage;
+        double lightningDamage;
         double aquaDamage;
         double holyDamage;
         double enderDamage;
@@ -71,7 +71,7 @@ public class CalcularDamage {
             pierceDamage = calcularDamage(atacante.getAttributeValue(Atributos.PIERCE.get()), victima.getAttributeValue(Atributos.PIERCE_RESIST.get()), damageOriginal);
             fireDamage = calcularDamage(atacante.getAttributeValue(Atributos.FIRE.get()), victima.getAttributeValue(Atributos.FIRE_RESIST.get()), damageOriginal);
             iceDamage = calcularDamage(atacante.getAttributeValue(Atributos.ICE.get()), victima.getAttributeValue(Atributos.ICE_RESIST.get()), damageOriginal);
-            lightingDamage = calcularDamage(atacante.getAttributeValue(Atributos.LIGHTING.get()), victima.getAttributeValue(Atributos.LIGHTING_RESIST.get()), damageOriginal);
+            lightningDamage = calcularDamage(atacante.getAttributeValue(Atributos.LIGHTNING.get()), victima.getAttributeValue(Atributos.LIGHTNING_RESIST.get()), damageOriginal);
             aquaDamage = calcularDamage(atacante.getAttributeValue(Atributos.AQUA.get()), victima.getAttributeValue(Atributos.AQUA_RESIST.get()), damageOriginal);
             holyDamage = calcularDamage(atacante.getAttributeValue(Atributos.HOLY.get()), victima.getAttributeValue(Atributos.HOLY_RESIST.get()), damageOriginal);
             enderDamage = calcularDamage(atacante.getAttributeValue(Atributos.ENDER.get()), victima.getAttributeValue(Atributos.ENDER_RESIST.get()), damageOriginal);
@@ -80,7 +80,7 @@ public class CalcularDamage {
             natureDamage = calcularDamage(atacante.getAttributeValue(Atributos.NATURE.get()), victima.getAttributeValue(Atributos.NATURE_RESIST.get()), damageOriginal);
             eldritchDamage = calcularDamage(atacante.getAttributeValue(Atributos.ELDRITCH.get()), victima.getAttributeValue(Atributos.ELDRITCH_RESIST.get()), damageOriginal);
 
-            damageModificado = slashDamage + strikeDamage + pierceDamage + fireDamage + iceDamage + lightingDamage + aquaDamage + holyDamage + enderDamage + bloodDamage + evocationDamage + natureDamage + eldritchDamage;
+            damageModificado = slashDamage + strikeDamage + pierceDamage + fireDamage + iceDamage + lightningDamage + aquaDamage + holyDamage + enderDamage + bloodDamage + evocationDamage + natureDamage + eldritchDamage;
 
             atributosMinimos = atributosMinimos - Atributos.atributosTotales(atacante);
 
@@ -98,7 +98,7 @@ public class CalcularDamage {
             pierceDamage = calcularDamage(dataDamage.damage().getPierce(), victima.getAttributeValue(Atributos.PIERCE_RESIST.get()), damageOriginal);
             fireDamage = calcularDamage(dataDamage.damage().getFire(), victima.getAttributeValue(Atributos.FIRE_RESIST.get()), damageOriginal);
             iceDamage = calcularDamage(dataDamage.damage().getIce(), victima.getAttributeValue(Atributos.ICE_RESIST.get()), damageOriginal);
-            lightingDamage = calcularDamage(dataDamage.damage().getLighting(), victima.getAttributeValue(Atributos.LIGHTING_RESIST.get()), damageOriginal);
+            lightningDamage = calcularDamage(dataDamage.damage().getLightning(), victima.getAttributeValue(Atributos.LIGHTNING_RESIST.get()), damageOriginal);
             aquaDamage = calcularDamage(dataDamage.damage().getAqua(), victima.getAttributeValue(Atributos.AQUA_RESIST.get()), damageOriginal);
             holyDamage = calcularDamage(dataDamage.damage().getHoly(), victima.getAttributeValue(Atributos.HOLY_RESIST.get()), damageOriginal);
             enderDamage = calcularDamage(dataDamage.damage().getEnder(), victima.getAttributeValue(Atributos.ENDER_RESIST.get()), damageOriginal);
@@ -107,7 +107,7 @@ public class CalcularDamage {
             natureDamage = calcularDamage(dataDamage.damage().getNature(), victima.getAttributeValue(Atributos.NATURE_RESIST.get()), damageOriginal);
             eldritchDamage = calcularDamage(dataDamage.damage().getEldritch(), victima.getAttributeValue(Atributos.ELDRITCH_RESIST.get()), damageOriginal);
 
-            damageModificado = slashDamage + strikeDamage + pierceDamage + fireDamage + iceDamage + lightingDamage + aquaDamage + holyDamage + enderDamage + bloodDamage + evocationDamage + natureDamage + eldritchDamage;
+            damageModificado = slashDamage + strikeDamage + pierceDamage + fireDamage + iceDamage + lightningDamage + aquaDamage + holyDamage + enderDamage + bloodDamage + evocationDamage + natureDamage + eldritchDamage;
 
             atributosMinimos = atributosMinimos - Atributos.atributosTotales(dataDamage);
 
@@ -119,7 +119,7 @@ public class CalcularDamage {
 
         }
 
-        MostrarCalculo.obtenerDatos(damageOriginal, slashDamage, strikeDamage, pierceDamage, fireDamage, iceDamage, lightingDamage, aquaDamage, holyDamage, enderDamage, bloodDamage, evocationDamage, natureDamage, eldritchDamage, damageModificado);
+        MostrarCalculo.obtenerDatos(damageOriginal, slashDamage, strikeDamage, pierceDamage, fireDamage, iceDamage, lightningDamage, aquaDamage, holyDamage, enderDamage, bloodDamage, evocationDamage, natureDamage, eldritchDamage, damageModificado);
     }
 
     public static double calcularDamage(double ataqueValor, double defensaValor, float damageOriginal){

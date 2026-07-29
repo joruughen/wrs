@@ -11,7 +11,7 @@ public record AtributosData(
         Optional<Double> pierce,
         Optional<Double> fire,
         Optional<Double> ice,
-        Optional<Double> lighting,
+        Optional<Double> lightning,
         Optional<Double> aqua,
         Optional<Double> holy,
         Optional<Double> ender,
@@ -27,7 +27,7 @@ public record AtributosData(
                     Codec.DOUBLE.optionalFieldOf("pierce").forGetter(AtributosData::pierce),
                     Codec.DOUBLE.optionalFieldOf("fire").forGetter(AtributosData::fire),
                     Codec.DOUBLE.optionalFieldOf("ice").forGetter(AtributosData::ice),
-                    Codec.DOUBLE.optionalFieldOf("lighting").forGetter(AtributosData::lighting),
+                    Codec.DOUBLE.optionalFieldOf("lightning").forGetter(AtributosData::lightning),
                     Codec.DOUBLE.optionalFieldOf("aqua").forGetter(AtributosData::aqua),
                     Codec.DOUBLE.optionalFieldOf("holy").forGetter(AtributosData::holy),
                     Codec.DOUBLE.optionalFieldOf("ender").forGetter(AtributosData::ender),
@@ -50,7 +50,7 @@ public record AtributosData(
     public Double getPierce() { return pierce().orElse(0.0); }
     public Double getFire() { return fire().orElse(0.0); }
     public Double getIce() { return ice().orElse(0.0); }
-    public Double getLighting() { return lighting().orElse(0.0); }
+    public Double getLightning() { return lightning().orElse(0.0); }
     public Double getAqua() { return aqua().orElse(0.0); }
     public Double getHoly() { return holy().orElse(0.0); }
     public Double getEnder() { return ender().orElse(0.0); }
@@ -66,7 +66,7 @@ public record AtributosData(
                 Optional.of(this.getPierce() + atributosDataNuevo.getPierce()),
                 Optional.of(this.getFire() + atributosDataNuevo.getFire()),
                 Optional.of(this.getIce() + atributosDataNuevo.getIce()),
-                Optional.of(this.getLighting() + atributosDataNuevo.getLighting()),
+                Optional.of(this.getLightning() + atributosDataNuevo.getLightning()),
                 Optional.of(this.getAqua() + atributosDataNuevo.getAqua()),
                 Optional.of(this.getHoly() + atributosDataNuevo.getHoly()),
                 Optional.of(this.getEnder() + atributosDataNuevo.getEnder()),
