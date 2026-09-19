@@ -1,140 +1,185 @@
-# Documentación del Mod WRS
+# Documentación del Mod EWS (Elemental Weakness System)
 
-## 1. Atributos de daño y resistencia
-- **Entidades** e **items** pueden tener valores de daño y resistencia. Los **tipos de daño** solo aceptan valores de daño.
-- Los valores son porcentajes y pueden ser positivos o negativos.
+## 1. Los 13 elementos
 
-## 2. Prioridad de los tipos de daño
-- Puedes definir **grupos** (varias entidades o ítems) para asignar valores, pero las **configuraciones individuales** reemplazan los valores definidos por los grupos.
-- Si un `tipo de daño` se marca como **especial** (p. ej. hechizos), siempre ignora el daño de la entidad y aplica solo el del `tipo de daño`.
+Cada elemento tiene **dos** atributos separados: uno de **ataque** (lo que el atacante inflige) y uno de **resistencia** (lo que la víctima mitiga). El id de resistencia es siempre el del ataque + `_resist`.
 
-## 3. Cómo funcionan los valores
-- **Daño**
-    - 100 % = todo el daño es de ese tipo.
-    - \> 100 % = exceso se añade como daño extra.
-    - Los valores negativos reducen el porcentaje de ese tipo de daño, hasta un mínimo de 0 %.
+| Elemento    | Ataque       | Resistencia          |
+|-------------|--------------|-----------------------|
+| Corte       | `slash`      | `slash_resist`        |
+| Impacto     | `strike`     | `strike_resist`       |
+| Perforante  | `pierce`     | `pierce_resist`       |
+| Fuego       | `fire`       | `fire_resist`         |
+| Hielo       | `ice`        | `ice_resist`          |
+| Eléctrico   | `lightning`  | `lightning_resist`    |
+| Agua        | `aqua`       | `aqua_resist`         |
+| Sagrado     | `holy`       | `holy_resist`         |
+| Ender       | `ender`      | `ender_resist`        |
+| Sangre      | `blood`      | `blood_resist`        |
+| Evocación   | `evocation`  | `evocation_resist`    |
+| Naturaleza  | `nature`     | `nature_resist`       |
+| Primigenio  | `eldritch`   | `eldritch_resist`     |
 
-- **Resistencia**
-    - ≥ 100 % = invulnerabilidad total a ese tipo.
-    - < 0 % = recibe daño extra.
+## 2. Cómo funciona el cálculo de daño
 
-## 4. Configuración mediante datapacks
+Cuando algo golpea a una entidad, el mod recalcula el daño elemento por elemento:
 
-Dentro de la carpeta de tu datapack (`<tu_datapack>/data/wrs/`), la estructura debe quedar así:
+```
+daño_de_ese_elemento = daño_original × (valor_de_ataque_del_elemento / 100)
+```
 
+Es decir, **el valor de ataque de un elemento es el porcentaje del golpe que se convierte en ese tipo de daño**. Un atacante con `fire = 30` hace que el 30 % del golpe sea daño de fuego.
 
-> **Nota**: la carpeta raíz de tu datapack debe ser:
-> ```  
-> <tu_datapack>/  
-> ├── data/  
-> │   └── wrs/  
-> │       ├── damage_types/  
-> │       │   └── <modid>/  
-> │       │       └── <damage_type_nombre>.json  
-> │       ├── entities/  
-> │       │   └── <modid>/  
-> │       │       └── <entity_nombre>.json  
-> │       ├── items/  
-> │       │   └── <modid>/  
-> │       │       └── <item_nombre>.json  
-> │       └── groups/  
-> │           └── <cualquier_nombre>.json  
-> └── pack.mcmeta  
-> ```  
+Después, ese trozo de daño se ve afectado por la **resistencia** de la víctima a ese mismo elemento:
 
-> **Importante**: El nombre del archivo `.json` debe coincidir exactamente con el nombre del `ítem`, `entidad` o `tipo de daño` (por ejemplo, `minecraft:zombie` → `zombie.json`).  
-> Además, deben colocarse dentro de la carpeta del `modid` correspondiente (por ejemplo, `entities/minecraft/zombie.json` o `items/mi_mod/espada_magica.json`).
+- Resistencia entre `0` y `100`: reduce ese porcentaje linealmente (`resistencia = 50` → mitad de daño de ese elemento).
+- Resistencia `> 100`: bloquea completamente ese elemento (0 de daño).
+- Resistencia negativa: **amplifica** ese elemento (`resistencia = -20` → +20 % de daño de ese elemento).
 
-## 5. Especificación de los archivos JSON
+Los 13 elementos se calculan de forma **independiente** (cada uno contra el 100 % del daño original) y después se **suman**. Si sumás los valores de ataque de tus 13 elementos y **no llegan a 100**, la diferencia se agrega aparte como daño sin tipo, que **no pasa por ninguna resistencia** — así que si a un mob solo le ponés `fire = 30` y nada más, el otro 70 % del golpe va a ignorar todas las resistencias elementales de la víctima. Tenlo en cuenta al balancear.
 
-Cada archivo JSON puede contener estos campos:
-- **damage** (opcional): objeto con pares `"tipo": valor` donde `valor` es porcentaje de daño (positivo o negativo).
-- **resistance** (opcional): objeto con pares `"tipo": valor` donde `valor` es porcentaje de resistencia (positivo o negativo).
-- **special** (solo en **damage_types**): booleano; si es `true`, ignora toda configuración de entidad y aplica únicamente este daño.
-- **ids** (solo en **groups**): lista de identificadores `"modid:itemid"` o `"modid:entityid"` a los que aplica la configuración de grupo.
+## 3. Sistemas de datos: cuál usa cada carpeta
 
-Los tipos disponibles (para `damage` y `resistance`) son:  
-`slash`, `bludgeon`, `pierce`, `arcane`, `fire`, `ice`, `electric`, `holy`, `dark`
+Hay dos sistemas de datos distintos, con **formatos diferentes**:
 
-### Ejemplos
+| Carpeta | Qué asigna | Formato |
+|---|---|---|
+| `groups`, `entities`, `items` | Atributos elementales a ítems/entidades (equipo, stats de mobs) | `modifiers` (ver sección 4) |
+| `damage_types` | Composición elemental fija de un `DamageType` de Minecraft (lava, caída, hechizos, etc.), independiente de quién lo cause | `damage` + `special` (ver sección 6) — **este formato no cambió** |
 
-#### Tipo De Daño
+## 4. Formato de `groups` / `entities` / `items`
+
+### 4.1 Ubicación de los archivos
+
+```
+<tu_datapack>/
+├── data/
+│   └── ews/
+│       ├── groups/
+│       │   └── <cualquier_nombre>.json
+│       ├── entities/
+│       │   └── <modid>/
+│       │       └── <entity_nombre>.json
+│       └── items/
+│           └── <modid>/
+│               └── <item_nombre>.json
+└── pack.mcmeta
+```
+
+Dos formas de nombrar a quién le aplica un archivo:
+
+- **Archivo individual** (`entities/minecraft/zombie.json`, `items/minecraft/diamond_sword.json`): el id se saca del propio path del archivo (`<carpeta_dentro_de_entities_o_items>/<nombre>.json` → `<esa_carpeta>:<nombre>`). No hace falta el campo `"ids"`.
+- **Archivo de grupo** (`groups/<lo_que_quieras>.json`): el nombre del archivo no importa, tenés que listar explícitamente los ids en `"ids"`.
+
+### 4.2 Estructura del JSON
+
+```json
+{
+  "ids": ["minecraft:zombie", "minecraft:husk"],
+  "modifiers": [
+    {
+      "attribute": "fire",
+      "operation": "addition",
+      "value": 100
+    }
+  ]
+}
+```
+
+- **`ids`** (solo en `groups`, opcional/omitido en archivos individuales): lista de ids `"namespace:nombre"` a los que aplica.
+- **`modifiers`**: lista de modificadores. Cada uno tiene:
+  - **`attribute`** *(obligatorio)*: el atributo al que apunta. Nombre corto (`"fire"`, `"nature_resist"`) asume el elemento propio de EWS; también podés poner el id completo (`"ews:fire"`), o en teoría el de cualquier otro mod (`"attributeslib:crit_chance"`).
+  - **`operation`** *(opcional, default `"addition"`)*: `"addition"`, `"multiply_base"` o `"multiply_total"` (ver 4.3).
+  - **`value`** *(obligatorio)*: número. Su significado depende de `operation`.
+  - **`slots`** *(opcional, solo tiene efecto en `items`, se ignora en `entities`)*: lista con uno o más de `head`, `chest`, `legs`, `feet`, `main`, `off`. Si no lo ponés, el modificador aplica en cualquier slot donde esté puesto el ítem. Si lo ponés, **solo** aplica cuando el ítem está en ese slot específico.
+
+No hace falta listar los 13 elementos — el que no aparece en `modifiers` simplemente vale 0.
+
+### 4.3 Las tres operaciones
+
+- **`addition`**: suma un valor plano al atributo. Para los elementos de EWS, este es el "% del golpe" del que habla la sección 2 — `{"attribute": "fire", "operation": "addition", "value": 100}` en un arma significa "el 100 % de lo que pegue esa arma es fuego".
+- **`multiply_base`** y **`multiply_total`**: bonos **porcentuales** (`value: 10` = +10 %). Minecraft calcula: `(base + suma de additions) × (1 + suma de multiply_base) × cada multiply_total`.
+  - **Importante**: nuestros 13 elementos arrancan en base `0`. Un `multiply_base`/`multiply_total` sobre un atributo que nadie puso en `0` con `addition` **no hace nada** (0 × cualquier cosa = 0). Sirven para potenciar un valor que **ya existe** — por ejemplo, un casco con `{"attribute": "pierce", "operation": "multiply_base", "value": 5}` solo hace algo si el arma con la que atacás ya te da algo de `pierce` por su cuenta; si atacás con un arma 100 % `slash`, el casco no afecta nada (ni al `slash`, que es un atributo aparte, ni al `pierce`, que sigue en 0).
+  - `multiply_base` vs `multiply_total`: si tenés varios ítems con `multiply_base` sobre el mismo atributo, sus porcentajes se **suman** entre sí antes de aplicarse (dos `+10%` = `+20%` total). Con `multiply_total`, cada uno se aplica **en cadena** sobre el resultado del anterior (dos `+10%` = `+21%` total). Usá `multiply_base` salvo que quieras específicamente el efecto compuesto.
+
+### 4.4 Prioridad: grupo vs. específico
+
+Si un ítem/entidad matchea tanto un `group` como su propio archivo en `items`/`entities`, se combinan: si ambos definen un modificador para el **mismo `attribute` + `operation`**, gana el específico (`items`/`entities`); el resto de los modificadores de ambos se conserva. Si dos archivos de **grupo** distintos apuntan al mismo id, sus modificadores se **suman** en la lista (no se pisan).
+
+## 5. Ejemplos
+
+### Arma que convierte su daño en 100 % fuego (archivo individual en `items`)
+`data/ews/items/minecraft/blaze_rod_sword.json`:
+```json
+{
+  "modifiers": [
+    { "attribute": "fire", "operation": "addition", "value": 100 }
+  ]
+}
+```
+
+### Casco que da +5 % de daño perforante, pero solo puesto en la cabeza
+```json
+{
+  "ids": ["mimod:casco_de_precision"],
+  "modifiers": [
+    { "attribute": "pierce", "operation": "multiply_base", "value": 5, "slots": ["head"] }
+  ]
+}
+```
+
+### Entidad con resistencias/debilidades (archivo individual en `entities`)
+`data/ews/entities/minecraft/zombie.json`:
+```json
+{
+  "modifiers": [
+    { "attribute": "slash", "operation": "addition", "value": 100 },
+
+    { "attribute": "strike_resist", "operation": "addition", "value": -20 },
+    { "attribute": "fire_resist", "operation": "addition", "value": -30 },
+    { "attribute": "holy_resist", "operation": "addition", "value": -50 },
+    { "attribute": "blood_resist", "operation": "addition", "value": 20 }
+  ]
+}
+```
+
+### Grupo de ítems (varias azadas dan daño perforante)
+`data/ews/groups/azadas_pierce.json`:
+```json
+{
+  "ids": [
+    "minecraft:wooden_hoe",
+    "minecraft:stone_hoe",
+    "minecraft:iron_hoe",
+    "minecraft:diamond_hoe",
+    "minecraft:netherite_hoe"
+  ],
+  "modifiers": [
+    { "attribute": "pierce", "operation": "addition", "value": 100 }
+  ]
+}
+```
+
+## 6. `damage_types` (sin cambios respecto a antes)
+
+Define la composición elemental fija de un `DamageType` de Minecraft — por ejemplo, para que la lava siempre sea 100 % fuego sin importar quién/qué causó el daño.
+
+`data/ews/damage_types/minecraft/lava.json`:
 ```json
 {
   "damage": {
-    "slash":    0.0,
-    "bludgeon": 0.0,
-    "pierce":  100.0,
-    "arcane":   0.0,
-    "fire":     0.0,
-    "ice":      0.0,
-    "electric": 0.0,
-    "holy":     0.0,
-    "dark":     0.0
+    "fire": 100.0
   },
   "special": true
 }
 ```
-#### Entidades o Items
 
-```json
-{
-  "damage": {
-    "slash":    100.0,
-    "bludgeon":   0.0,
-    "pierce":     0.0,
-    "arcane":     0.0,
-    "fire":       0.0,
-    "ice":        0.0,
-    "electric":   0.0,
-    "holy":       0.0,
-    "dark":     -30.0
-  },
-  "resistance": {
-    "slash":      0.0,
-    "bludgeon":   0.0,
-    "pierce":     0.0,
-    "arcane":     0.0,
-    "fire":       0.0,
-    "ice":        0.0,
-    "electric":   0.0,
-    "holy":       0.0,
-    "dark":       0.0
-  }
-}
-```
-#### Grupos
-Aplica una configuración a múltiples entidades y/o ítems.
+- **`damage`**: objeto con pares `"elemento": valor` (los 13 nombres de ataque de la sección 1, sin `_resist`). Los que no pongas valen 0.
+- **`special`**: si es `true`, este perfil elemental se usa **siempre** para ese `DamageType`, ignorando por completo los atributos del atacante (útil para daño sin atacante con sentido, como caída o lava, o para forzar que un tipo de daño sea siempre el mismo elemento). Si es `false`/lo omitís, solo se usa cuando no hay atacante viviente.
 
-```json
-{
-  "ids": [
-    "minecraft:zombie",
-    "minecraft:diamond_sword"
-  ],
-  "damage": {
-    "slash":    100.0,
-    "bludgeon": 0.0,
-    "pierce":  0.0,
-    "arcane":   0.0,
-    "fire":     0.0,
-    "ice":      0.0,
-    "electric": 0.0,
-    "holy":     0.0,
-    "dark":     0.0
-  },
-  "resistance": {
-    "slash":      0.0,
-    "bludgeon":   0.0,
-    "pierce":     0.0,
-    "arcane":     0.0,
-    "fire":       0.0,
-    "ice":        0.0,
-    "electric":   0.0,
-    "holy":       0.0,
-    "dark":       0.0
-  }
-}
-```
-**Tip**: Puedes omitir los campos `damage` o `resistance` si no los necesitas (por ejemplo, si todos sus valores serían 0.0).
-Además, dentro de `damage` o `resistance`, puedes omitir tipos de daño específicos; cualquier tipo de daño no definido se asumirá con un valor de 0.0.
+## 7. Tips generales
+
+- Podés omitir `modifiers`/`damage`/`ids` si no hacen falta.
+- No hace falta declarar los 13 elementos en cada archivo — lo que no aparece vale 0.
+- `slots` y las operaciones porcentuales (`multiply_base`/`multiply_total`) **solo tienen efecto en ítems**; en `entities` se ignoran (los mobs solo usan `addition`, como valor base fijo).
+- Si algo no anda, mirá `run/logs/latest.log` — el mod avisa ahí si un `attribute` de tu JSON no se pudo resolver (por typo, por ejemplo).
