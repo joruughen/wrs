@@ -14,7 +14,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(
@@ -52,8 +51,7 @@ public class AgregarAtributosEntidad {
             resultado = AtributosDataType.reemplazarValores(dataGrupo, dataEntidad);
         }
 
-        Map<Attribute, Double> atributosMap = new HashMap<>();
-        Atributos.atributosMap(atributosMap, resultado);
+        Map<Attribute, Double> atributosMap = Atributos.valoresBase(resultado);
 
         if (entidad instanceof LivingEntity livingEntity) {
             for (Map.Entry<Attribute, Double> entry : atributosMap.entrySet()) {

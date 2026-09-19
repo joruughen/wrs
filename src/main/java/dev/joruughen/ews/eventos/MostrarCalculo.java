@@ -2,15 +2,19 @@ package dev.joruughen.ews.eventos;
 
 import dev.joruughen.ews.Config;
 import dev.joruughen.ews.Ews;
+import dev.joruughen.ews.atributos.Elemento;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.EnumMap;
 import java.util.Locale;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(
         modid = Ews.MODID,
@@ -18,112 +22,77 @@ import java.util.Locale;
 )
 public class MostrarCalculo {
 
-    public static float damageOriginal;
-    public static double slashDamage;
-    public static double strikeDamage;
-    public static double pierceDamage;
-    public static double fireDamage;
-    public static double iceDamage;
-    public static double lightningDamage;
-    public static double aquaDamage;
-    public static double holyDamage;
-    public static double enderDamage;
-    public static double bloodDamage;
-    public static double evocationDamage;
-    public static double natureDamage;
-    public static double eldritchDamage;
-    public static double damageModificado;
+    private static float damageOriginal;
+    private static Map<Elemento, Double> desglose = new EnumMap<>(Elemento.class);
+    private static double damageModificado;
+    private static ResourceLocation damageType;
+    private static LivingEntity origenAtacante;
+    private static LivingEntity origenVictima;
 
     @SubscribeEvent
     public static void onLivingHurt(LivingDamageEvent event) {
 
-        if (Config.debug){
+        if (Config.debug) {
             if (event.getSource().getEntity() instanceof ServerPlayer atacante) {
-
-                mensaje(atacante, Ews.MODID + ".initial_damage", damageOriginal, ChatFormatting.GREEN);
-                mensaje(atacante, Ews.MODID + ".value.slash", slashDamage, ChatFormatting.WHITE);
-                mensaje(atacante, Ews.MODID + ".value.strike", strikeDamage, ChatFormatting.WHITE);
-                mensaje(atacante, Ews.MODID + ".value.pierce", pierceDamage, ChatFormatting.WHITE);
-                mensaje(atacante, Ews.MODID + ".value.fire", fireDamage, ChatFormatting.GOLD);
-                mensaje(atacante, Ews.MODID + ".value.ice", iceDamage, ChatFormatting.DARK_AQUA);
-                mensaje(atacante, Ews.MODID + ".value.lightning", lightningDamage, ChatFormatting.AQUA);
-                mensaje(atacante, Ews.MODID + ".value.aqua", aquaDamage, ChatFormatting.BLUE);
-                mensaje(atacante, Ews.MODID + ".value.holy", holyDamage, ChatFormatting.YELLOW);
-                mensaje(atacante, Ews.MODID + ".value.ender", enderDamage, ChatFormatting.DARK_PURPLE);
-                mensaje(atacante, Ews.MODID + ".value.blood", bloodDamage, ChatFormatting.DARK_RED);
-                mensaje(atacante, Ews.MODID + ".value.evocation", evocationDamage, ChatFormatting.GRAY);
-                mensaje(atacante, Ews.MODID + ".value.nature", natureDamage, ChatFormatting.GREEN);
-                mensaje(atacante, Ews.MODID + ".value.eldritch", eldritchDamage, ChatFormatting.DARK_GREEN);
-                mensaje(atacante, Ews.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
-
+                mostrar(atacante, false);
             }
 
             if (event.getEntity() instanceof ServerPlayer victima) {
 
-                if (damageOriginal == 0){
-                    String damageType = new ResourceLocation(event.getSource().getMsgId().toLowerCase(Locale.ROOT)).toString();
+                if (damageOriginal == 0) {
+                    String noDataType = new ResourceLocation(event.getSource().getMsgId().toLowerCase(Locale.ROOT)).toString();
 
-                    victima.sendSystemMessage(Component.translatable(Ews.MODID + ".no_data", damageType)
+                    victima.sendSystemMessage(Component.translatable(Ews.MODID + ".no_data", noDataType)
                             .withStyle(ChatFormatting.WHITE));
                     return;
                 }
 
-                mensaje(victima, Ews.MODID + ".initial_damage", damageOriginal, ChatFormatting.GREEN);
-                mensaje(victima, Ews.MODID + ".value.slash", slashDamage, ChatFormatting.WHITE);
-                mensaje(victima, Ews.MODID + ".value.strike", strikeDamage, ChatFormatting.WHITE);
-                mensaje(victima, Ews.MODID + ".value.pierce", pierceDamage, ChatFormatting.WHITE);
-                mensaje(victima, Ews.MODID + ".value.fire", fireDamage, ChatFormatting.GOLD);
-                mensaje(victima, Ews.MODID + ".value.ice", iceDamage, ChatFormatting.DARK_AQUA);
-                mensaje(victima, Ews.MODID + ".value.lightning", lightningDamage, ChatFormatting.AQUA);
-                mensaje(victima, Ews.MODID + ".value.aqua", aquaDamage, ChatFormatting.BLUE);
-                mensaje(victima, Ews.MODID + ".value.holy", holyDamage, ChatFormatting.YELLOW);
-                mensaje(victima, Ews.MODID + ".value.ender", enderDamage, ChatFormatting.DARK_PURPLE);
-                mensaje(victima, Ews.MODID + ".value.blood", bloodDamage, ChatFormatting.DARK_RED);
-                mensaje(victima, Ews.MODID + ".value.evocation", evocationDamage, ChatFormatting.GRAY);
-                mensaje(victima, Ews.MODID + ".value.nature", natureDamage, ChatFormatting.GREEN);
-                mensaje(victima, Ews.MODID + ".value.eldritch", eldritchDamage, ChatFormatting.DARK_GREEN);
-                mensaje(victima, Ews.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
+                mostrar(victima, true);
             }
-
         }
 
         damageOriginal = 0;
-        slashDamage = 0;
-        strikeDamage = 0;
-        pierceDamage = 0;
-        fireDamage = 0;
-        iceDamage = 0;
-        lightningDamage = 0;
-        aquaDamage = 0;
-        holyDamage = 0;
-        enderDamage = 0;
-        bloodDamage = 0;
-        evocationDamage = 0;
-        natureDamage = 0;
-        eldritchDamage = 0;
+        desglose = new EnumMap<>(Elemento.class);
         damageModificado = 0;
+        damageType = null;
+        origenAtacante = null;
+        origenVictima = null;
 
     }
 
-    public static void obtenerDatos(float damageOriginal, double slashDamage, double strikeDamage, double pierceDamage, double fireDamage, double iceDamage, double lightningDamage, double aquaDamage, double holyDamage, double enderDamage, double bloodDamage, double evocationDamage, double natureDamage, double eldritchDamage, double damageModificado){
+    private static void mostrar(ServerPlayer jugador, boolean esVictima) {
+        mensaje(jugador, Ews.MODID + ".initial_damage", damageOriginal, ChatFormatting.GREEN);
+        for (Elemento elemento : Elemento.values()) {
+            mensaje(jugador, Ews.MODID + ".value." + elemento.id(), desglose.getOrDefault(elemento, 0.0), elemento.color());
+        }
+        mensaje(jugador, Ews.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
+
+        if (esVictima) {
+            jugador.sendSystemMessage(Component.translatable(Ews.MODID + ".debug.damage_type",
+                            damageType != null ? damageType.toString() : "?")
+                    .withStyle(ChatFormatting.AQUA));
+
+            if (origenAtacante != null) {
+                jugador.sendSystemMessage(Component.translatable(Ews.MODID + ".debug.attacker", origenAtacante.getName())
+                        .withStyle(ChatFormatting.AQUA));
+            }
+        } else if (origenVictima != null) {
+            jugador.sendSystemMessage(Component.translatable(Ews.MODID + ".debug.target", origenVictima.getName())
+                    .withStyle(ChatFormatting.AQUA));
+        }
+    }
+
+    public static void obtenerDatos(float damageOriginal, Map<Elemento, Double> desglose, double damageModificado,
+                                     ResourceLocation damageType, LivingEntity atacante, LivingEntity victima) {
         MostrarCalculo.damageOriginal = damageOriginal;
-        MostrarCalculo.slashDamage = slashDamage;
-        MostrarCalculo.strikeDamage = strikeDamage;
-        MostrarCalculo.pierceDamage = pierceDamage;
-        MostrarCalculo.fireDamage = fireDamage;
-        MostrarCalculo.iceDamage = iceDamage;
-        MostrarCalculo.lightningDamage = lightningDamage;
-        MostrarCalculo.aquaDamage = aquaDamage;
-        MostrarCalculo.holyDamage = holyDamage;
-        MostrarCalculo.enderDamage = enderDamage;
-        MostrarCalculo.bloodDamage = bloodDamage;
-        MostrarCalculo.evocationDamage = evocationDamage;
-        MostrarCalculo.natureDamage = natureDamage;
-        MostrarCalculo.eldritchDamage = eldritchDamage;
+        MostrarCalculo.desglose = desglose;
         MostrarCalculo.damageModificado = damageModificado;
+        MostrarCalculo.damageType = damageType;
+        MostrarCalculo.origenAtacante = atacante;
+        MostrarCalculo.origenVictima = victima;
     }
 
-    private static void mensaje(ServerPlayer serverPlayer, String translatable, double damage, ChatFormatting color){
+    private static void mensaje(ServerPlayer serverPlayer, String translatable, double damage, ChatFormatting color) {
         serverPlayer.sendSystemMessage(Component.translatable(translatable, damage)
                 .withStyle(color));
     }

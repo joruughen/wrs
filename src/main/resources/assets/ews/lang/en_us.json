@@ -63,6 +63,9 @@
     "ews.initial_damage": "Initial Damage: %s",
     "ews.final_damage": "Final Damage: %s",
     "ews.no_data": "No data found for the damage type %s",
+    "ews.debug.damage_type": "Damage Type: %s",
+    "ews.debug.attacker": "Attacker: %s",
+    "ews.debug.target": "Target: %s",
     "ews.key.show_defenses": "Show Defenses",
     "ews.key.gui": "EWS"
 }

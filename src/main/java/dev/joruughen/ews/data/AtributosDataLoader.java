@@ -10,8 +10,10 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AtributosDataLoader extends SimpleJsonResourceReloadListener {
@@ -38,10 +40,10 @@ public class AtributosDataLoader extends SimpleJsonResourceReloadListener {
                             for (ResourceLocation dataId : d.ids()) {
                                 if (this.data.containsKey(dataId)) {
 
-                                    AtributosData damageFinal = d.damage().combinar(this.data.get(dataId).damage());
-                                    AtributosData resistenciaFinal = d.resistance().combinar(this.data.get(dataId).resistance());
+                                    List<Modificador> modificadoresFinales = new ArrayList<>(this.data.get(dataId).modifiers());
+                                    modificadoresFinales.addAll(d.modifiers());
 
-                                    AtributosDataType nuevo = new AtributosDataType(d.ids(), damageFinal, resistenciaFinal);
+                                    AtributosDataType nuevo = new AtributosDataType(d.ids(), modificadoresFinales);
 
                                     this.data.put(dataId, nuevo);
                                 } else {

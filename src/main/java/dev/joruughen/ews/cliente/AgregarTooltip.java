@@ -2,12 +2,16 @@ package dev.joruughen.ews.cliente;
 
 import dev.joruughen.ews.Ews;
 import dev.joruughen.ews.atributos.Atributos;
+import dev.joruughen.ews.atributos.Elemento;
 import dev.joruughen.ews.data.AtributosDataType;
+import dev.joruughen.ews.data.Modificador;
 import dev.joruughen.ews.network.ClientDataHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -40,59 +44,42 @@ public class AgregarTooltip {
 
         AtributosDataType resultado;
 
-        if (dataGrupo == null){
-            if (dataItem == null){
+        if (dataGrupo == null) {
+            if (dataItem == null) {
                 return;
-            }else resultado = dataItem;
-        }else resultado = dataGrupo;
+            } else resultado = dataItem;
+        } else resultado = dataGrupo;
 
         if (dataGrupo != null && dataItem != null) {
             resultado = AtributosDataType.reemplazarValores(dataGrupo, dataItem);
         }
 
-        // Daños
-        agregarAtributo(event, Atributos.SLASH.get().getDescriptionId(), ChatFormatting.WHITE, resultado.damage().getSlash());
-        agregarAtributo(event, Atributos.STRIKE.get().getDescriptionId(), ChatFormatting.WHITE, resultado.damage().getStrike());
-        agregarAtributo(event, Atributos.PIERCE.get().getDescriptionId(), ChatFormatting.WHITE, resultado.damage().getPierce());
-        agregarAtributo(event, Atributos.FIRE.get().getDescriptionId(), ChatFormatting.GOLD, resultado.damage().getFire());
-        agregarAtributo(event, Atributos.ICE.get().getDescriptionId(), ChatFormatting.DARK_AQUA, resultado.damage().getIce());
-        agregarAtributo(event, Atributos.LIGHTNING.get().getDescriptionId(), ChatFormatting.AQUA, resultado.damage().getLightning());
-        agregarAtributo(event, Atributos.AQUA.get().getDescriptionId(), ChatFormatting.BLUE, resultado.damage().getAqua());
-        agregarAtributo(event, Atributos.HOLY.get().getDescriptionId(), ChatFormatting.YELLOW, resultado.damage().getHoly());
-        agregarAtributo(event, Atributos.ENDER.get().getDescriptionId(), ChatFormatting.DARK_PURPLE, resultado.damage().getEnder());
-        agregarAtributo(event, Atributos.BLOOD.get().getDescriptionId(), ChatFormatting.DARK_RED, resultado.damage().getBlood());
-        agregarAtributo(event, Atributos.EVOCATION.get().getDescriptionId(), ChatFormatting.GRAY, resultado.damage().getEvocation());
-        agregarAtributo(event, Atributos.NATURE.get().getDescriptionId(), ChatFormatting.GREEN, resultado.damage().getNature());
-        agregarAtributo(event, Atributos.ELDRITCH.get().getDescriptionId(), ChatFormatting.DARK_GREEN, resultado.damage().getEldritch());
-
-        // Resistencias
-        agregarAtributo(event, Atributos.SLASH_RESIST.get().getDescriptionId(), ChatFormatting.WHITE, resultado.resistance().getSlash());
-        agregarAtributo(event, Atributos.STRIKE_RESIST.get().getDescriptionId(), ChatFormatting.WHITE, resultado.resistance().getStrike());
-        agregarAtributo(event, Atributos.PIERCE_RESIST.get().getDescriptionId(), ChatFormatting.WHITE, resultado.resistance().getPierce());
-        agregarAtributo(event, Atributos.FIRE_RESIST.get().getDescriptionId(), ChatFormatting.GOLD, resultado.resistance().getFire());
-        agregarAtributo(event, Atributos.ICE_RESIST.get().getDescriptionId(), ChatFormatting.DARK_AQUA, resultado.resistance().getIce());
-        agregarAtributo(event, Atributos.LIGHTNING_RESIST.get().getDescriptionId(), ChatFormatting.AQUA, resultado.resistance().getLightning());
-        agregarAtributo(event, Atributos.AQUA_RESIST.get().getDescriptionId(), ChatFormatting.BLUE, resultado.resistance().getAqua());
-        agregarAtributo(event, Atributos.HOLY_RESIST.get().getDescriptionId(), ChatFormatting.YELLOW, resultado.resistance().getHoly());
-        agregarAtributo(event, Atributos.ENDER_RESIST.get().getDescriptionId(), ChatFormatting.DARK_PURPLE, resultado.resistance().getEnder());
-        agregarAtributo(event, Atributos.BLOOD_RESIST.get().getDescriptionId(), ChatFormatting.DARK_RED, resultado.resistance().getBlood());
-        agregarAtributo(event, Atributos.EVOCATION_RESIST.get().getDescriptionId(), ChatFormatting.GRAY, resultado.resistance().getEvocation());
-        agregarAtributo(event, Atributos.NATURE_RESIST.get().getDescriptionId(), ChatFormatting.GREEN, resultado.resistance().getNature());
-        agregarAtributo(event, Atributos.ELDRITCH_RESIST.get().getDescriptionId(), ChatFormatting.DARK_GREEN, resultado.resistance().getEldritch());
+        for (Modificador modificador : resultado.modifiers()) {
+            agregarAtributo(event, modificador);
+        }
 
     }
 
     // Función genérica para agregar atributos al tooltip
-    private static void agregarAtributo(ItemTooltipEvent event, String atributoId, ChatFormatting color, double valorAtributo) {
-        if (valorAtributo != 0) {
-            String attributeName = I18n.get(atributoId);
-            ChatFormatting colorValor = (valorAtributo > 0) ? ChatFormatting.BLUE : ChatFormatting.RED;
+    private static void agregarAtributo(ItemTooltipEvent event, Modificador modificador) {
+        if (modificador.valor() == 0) return;
 
-            // Remover cualquier línea que contenga el atributo antes de agregarlo
-            event.getToolTip().removeIf(component -> component.getString().contains(attributeName));
+        Attribute attribute = ForgeRegistries.ATTRIBUTES.getValue(modificador.atributo());
+        if (attribute == null) return;
 
-            event.getToolTip().add(Component.literal(attributeName + ": ").withStyle(color).append(Component.literal("" + valorAtributo).withStyle(colorValor)));
-        }
+        Elemento elemento = Atributos.elementoDe(modificador.atributo());
+        ChatFormatting color = elemento != null ? elemento.color() : ChatFormatting.GRAY;
+
+        String attributeName = I18n.get(attribute.getDescriptionId());
+        ChatFormatting colorValor = (modificador.valor() > 0) ? ChatFormatting.BLUE : ChatFormatting.RED;
+        String textoValor = modificador.operacion() == AttributeModifier.Operation.ADDITION
+                ? String.valueOf(modificador.valor())
+                : (modificador.valor() > 0 ? "+" : "") + modificador.valor() + "%";
+
+        // Remover cualquier línea que contenga el atributo antes de agregarlo
+        event.getToolTip().removeIf(component -> component.getString().contains(attributeName));
+
+        event.getToolTip().add(Component.literal(attributeName + ": ").withStyle(color).append(Component.literal(textoValor).withStyle(colorValor)));
     }
 
 }

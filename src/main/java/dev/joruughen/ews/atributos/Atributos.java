@@ -3,117 +3,95 @@ package dev.joruughen.ews.atributos;
 import dev.joruughen.ews.Ews;
 import dev.joruughen.ews.data.AtributosDataType;
 import dev.joruughen.ews.data.DamageTypeData;
+import dev.joruughen.ews.data.Modificador;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Atributos {
 
     public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, Ews.MODID);
 
-    public static final RegistryObject<Attribute> SLASH = ATTRIBUTES.register("slash", () -> (new RangedAttribute(Ews.MODID + ".slash", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> STRIKE = ATTRIBUTES.register("strike", () -> (new RangedAttribute(Ews.MODID + ".strike", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> PIERCE = ATTRIBUTES.register("pierce", () -> (new RangedAttribute(Ews.MODID + ".pierce", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> FIRE = ATTRIBUTES.register("fire", () -> (new RangedAttribute(Ews.MODID + ".fire", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> ICE = ATTRIBUTES.register("ice", () -> (new RangedAttribute(Ews.MODID + ".ice", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> LIGHTNING = ATTRIBUTES.register("lightning", () -> (new RangedAttribute(Ews.MODID + ".lightning", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> AQUA = ATTRIBUTES.register("aqua", () -> (new RangedAttribute(Ews.MODID + ".aqua", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> HOLY = ATTRIBUTES.register("holy", () -> (new RangedAttribute(Ews.MODID + ".holy", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> ENDER = ATTRIBUTES.register("ender", () -> (new RangedAttribute(Ews.MODID + ".ender", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> BLOOD = ATTRIBUTES.register("blood", () -> (new RangedAttribute(Ews.MODID + ".blood", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> EVOCATION = ATTRIBUTES.register("evocation", () -> (new RangedAttribute(Ews.MODID + ".evocation", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> NATURE = ATTRIBUTES.register("nature", () -> (new RangedAttribute(Ews.MODID + ".nature", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> ELDRITCH = ATTRIBUTES.register("eldritch", () -> (new RangedAttribute(Ews.MODID + ".eldritch", 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true));
+    private static final Map<Elemento, RegistryObject<Attribute>> DAMAGE = new EnumMap<>(Elemento.class);
+    private static final Map<Elemento, RegistryObject<Attribute>> RESIST = new EnumMap<>(Elemento.class);
+    private static final Map<ResourceLocation, Elemento> POR_ID = new HashMap<>();
 
-    public static final RegistryObject<Attribute> SLASH_RESIST = ATTRIBUTES.register("slash_resist", () -> (new RangedAttribute(Ews.MODID + ".slash_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> STRIKE_RESIST = ATTRIBUTES.register("strike_resist", () -> (new RangedAttribute(Ews.MODID + ".strike_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> PIERCE_RESIST = ATTRIBUTES.register("pierce_resist", () -> (new RangedAttribute(Ews.MODID + ".pierce_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> FIRE_RESIST = ATTRIBUTES.register("fire_resist", () -> (new RangedAttribute(Ews.MODID + ".fire_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> ICE_RESIST = ATTRIBUTES.register("ice_resist", () -> (new RangedAttribute(Ews.MODID + ".ice_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> LIGHTNING_RESIST = ATTRIBUTES.register("lightning_resist", () -> (new RangedAttribute(Ews.MODID + ".lightning_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> AQUA_RESIST = ATTRIBUTES.register("aqua_resist", () -> (new RangedAttribute(Ews.MODID + ".aqua_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> HOLY_RESIST = ATTRIBUTES.register("holy_resist", () -> (new RangedAttribute(Ews.MODID + ".holy_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> ENDER_RESIST = ATTRIBUTES.register("ender_resist", () -> (new RangedAttribute(Ews.MODID + ".ender_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> BLOOD_RESIST = ATTRIBUTES.register("blood_resist", () -> (new RangedAttribute(Ews.MODID + ".blood_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> EVOCATION_RESIST = ATTRIBUTES.register("evocation_resist", () -> (new RangedAttribute(Ews.MODID + ".evocation_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> NATURE_RESIST = ATTRIBUTES.register("nature_resist", () -> (new RangedAttribute(Ews.MODID + ".nature_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
-    public static final RegistryObject<Attribute> ELDRITCH_RESIST = ATTRIBUTES.register("eldritch_resist", () -> (new RangedAttribute(Ews.MODID + ".eldritch_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true));
+    static {
+        for (Elemento elemento : Elemento.values()) {
+            DAMAGE.put(elemento, ATTRIBUTES.register(elemento.id(),
+                    () -> (new RangedAttribute(Ews.MODID + "." + elemento.id(), 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true)));
+            RESIST.put(elemento, ATTRIBUTES.register(elemento.id() + "_resist",
+                    () -> (new RangedAttribute(Ews.MODID + "." + elemento.id() + "_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true)));
+            POR_ID.put(new ResourceLocation(Ews.MODID, elemento.id()), elemento);
+            POR_ID.put(new ResourceLocation(Ews.MODID, elemento.id() + "_resist"), elemento);
+        }
+    }
 
     public Atributos() {
     }
 
-        public static void atributosMap(Map<Attribute, Double> atributosMap, AtributosDataType data){
-        atributosMap.put(Atributos.SLASH.get(), data.damage().getSlash());
-        atributosMap.put(Atributos.STRIKE.get(), data.damage().getStrike());
-        atributosMap.put(Atributos.PIERCE.get(), data.damage().getPierce());
-        atributosMap.put(Atributos.FIRE.get(), data.damage().getFire());
-        atributosMap.put(Atributos.ICE.get(), data.damage().getIce());
-        atributosMap.put(Atributos.LIGHTNING.get(), data.damage().getLightning());
-        atributosMap.put(Atributos.AQUA.get(), data.damage().getAqua());
-        atributosMap.put(Atributos.HOLY.get(), data.damage().getHoly());
-        atributosMap.put(Atributos.ENDER.get(), data.damage().getEnder());
-        atributosMap.put(Atributos.BLOOD.get(), data.damage().getBlood());
-        atributosMap.put(Atributos.EVOCATION.get(), data.damage().getEvocation());
-        atributosMap.put(Atributos.NATURE.get(), data.damage().getNature());
-        atributosMap.put(Atributos.ELDRITCH.get(), data.damage().getEldritch());
+    public static Attribute damage(Elemento elemento) {
+        return DAMAGE.get(elemento).get();
+    }
 
-        atributosMap.put(Atributos.SLASH_RESIST.get(), data.resistance().getSlash());
-        atributosMap.put(Atributos.STRIKE_RESIST.get(), data.resistance().getStrike());
-        atributosMap.put(Atributos.PIERCE_RESIST.get(), data.resistance().getPierce());
-        atributosMap.put(Atributos.FIRE_RESIST.get(), data.resistance().getFire());
-        atributosMap.put(Atributos.ICE_RESIST.get(), data.resistance().getIce());
-        atributosMap.put(Atributos.LIGHTNING_RESIST.get(), data.resistance().getLightning());
-        atributosMap.put(Atributos.AQUA_RESIST.get(), data.resistance().getAqua());
-        atributosMap.put(Atributos.HOLY_RESIST.get(), data.resistance().getHoly());
-        atributosMap.put(Atributos.ENDER_RESIST.get(), data.resistance().getEnder());
-        atributosMap.put(Atributos.BLOOD_RESIST.get(), data.resistance().getBlood());
-        atributosMap.put(Atributos.EVOCATION_RESIST.get(), data.resistance().getEvocation());
-        atributosMap.put(Atributos.NATURE_RESIST.get(), data.resistance().getNature());
-        atributosMap.put(Atributos.ELDRITCH_RESIST.get(), data.resistance().getEldritch());
+    public static Attribute resist(Elemento elemento) {
+        return RESIST.get(elemento).get();
+    }
+
+    /** Devuelve el {@link Elemento} propio de EWS al que pertenece este id de atributo, o null si es de otro mod. */
+    public static Elemento elementoDe(ResourceLocation idAtributo) {
+        return POR_ID.get(idAtributo);
+    }
+
+    /**
+     * Resuelve los modificadores de tipo "addition" de {@code data} a un valor base por atributo,
+     * para asignar directamente vía {@code AttributeInstance.setBaseValue(...)} (usado al spawnear
+     * entidades). Los modificadores porcentuales ("multiply_base"/"multiply_total") no aplican a un
+     * valor base y se ignoran aquí — están pensados para ítems, ver {@code AgregarModificadorItem}.
+     */
+    public static Map<Attribute, Double> valoresBase(AtributosDataType data) {
+        Map<Attribute, Double> valores = new HashMap<>();
+        for (Modificador modificador : data.modifiers()) {
+            if (modificador.operacion() != AttributeModifier.Operation.ADDITION) continue;
+
+            Attribute attribute = ForgeRegistries.ATTRIBUTES.getValue(modificador.atributo());
+            if (attribute == null) {
+                Ews.LOGGER.warn("Atributo desconocido en datapack: {}", modificador.atributo());
+                continue;
+            }
+
+            valores.merge(attribute, modificador.valor(), Double::sum);
+        }
+        return valores;
     }
 
     public static double atributosTotales(LivingEntity entity) {
-        Attribute[] damageAttributes = new Attribute[]{
-                Atributos.SLASH.get(), Atributos.STRIKE.get(), Atributos.PIERCE.get(),
-                Atributos.FIRE.get(), Atributos.ICE.get(), Atributos.LIGHTNING.get(),
-                Atributos.AQUA.get(), Atributos.HOLY.get(), Atributos.ENDER.get(),
-                Atributos.BLOOD.get(), Atributos.EVOCATION.get(), Atributos.NATURE.get(),
-                Atributos.ELDRITCH.get()
-        };
-
         double atributosTotales = 0.0;
-        for (Attribute attr : damageAttributes) {
-            atributosTotales += entity.getAttributeValue(attr);
+        for (Elemento elemento : Elemento.values()) {
+            atributosTotales += entity.getAttributeValue(damage(elemento));
         }
-
         return atributosTotales;
     }
 
     public static double atributosTotales(DamageTypeData data) {
-        double[] dataType = {
-                data.damage().getSlash(), data.damage().getStrike(), data.damage().getPierce(),
-                data.damage().getFire(), data.damage().getIce(), data.damage().getLightning(),
-                data.damage().getAqua(), data.damage().getHoly(), data.damage().getEnder(),
-                data.damage().getBlood(), data.damage().getEvocation(), data.damage().getNature(),
-                data.damage().getEldritch()
-        };
-
         double atributosTotales = 0.0;
-        for (double attr : dataType) {
-            atributosTotales += attr;
+        for (Elemento elemento : Elemento.values()) {
+            atributosTotales += elemento.valorEn(data.damage());
         }
-
         return atributosTotales;
     }
 
-
-    public static void register(IEventBus eventBus){
+    public static void register(IEventBus eventBus) {
         ATTRIBUTES.register(eventBus);
     }
 }

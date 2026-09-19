@@ -63,6 +63,9 @@
     "ews.initial_damage": "Daño Inicial: %s",
     "ews.final_damage": "Daño Final: %s",
     "ews.no_data": "No se encontraron datos para el tipo de daño %s",
+    "ews.debug.damage_type": "Tipo de Daño: %s",
+    "ews.debug.attacker": "Atacante: %s",
+    "ews.debug.target": "Objetivo: %s",
     "ews.key.show_defenses": "Mostrar Defensas",
     "ews.key.gui": "EWS"
 }
