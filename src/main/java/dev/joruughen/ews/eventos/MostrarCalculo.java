@@ -67,11 +67,11 @@ public class MostrarCalculo {
         }
         mensaje(jugador, Ews.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
 
-        if (esVictima) {
-            jugador.sendSystemMessage(Component.translatable(Ews.MODID + ".debug.damage_type",
-                            damageType != null ? damageType.toString() : "?")
-                    .withStyle(ChatFormatting.AQUA));
+        jugador.sendSystemMessage(Component.translatable(Ews.MODID + ".debug.damage_type",
+                        damageType != null ? damageType.toString() : "?")
+                .withStyle(ChatFormatting.AQUA));
 
+        if (esVictima) {
             if (origenAtacante != null) {
                 jugador.sendSystemMessage(Component.translatable(Ews.MODID + ".debug.attacker", origenAtacante.getName())
                         .withStyle(ChatFormatting.AQUA));

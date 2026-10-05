@@ -32,9 +32,10 @@ Es decir, **el valor de ataque de un elemento es el porcentaje del golpe que se 
 
 Después, ese trozo de daño se ve afectado por la **resistencia** de la víctima a ese mismo elemento:
 
-- Resistencia entre `0` y `100`: reduce ese porcentaje linealmente (`resistencia = 50` → mitad de daño de ese elemento).
-- Resistencia `> 100`: bloquea completamente ese elemento (0 de daño).
-- Resistencia negativa: **amplifica** ese elemento (`resistencia = -20` → +20 % de daño de ese elemento).
+- Resistencia entre `0` y `80`: reduce ese porcentaje linealmente (`resistencia = 50` → mitad de daño de ese elemento). El máximo es 80, así que nunca hay inmunidad total.
+- Resistencia negativa (hasta `-100`): **amplifica** ese elemento (`resistencia = -20` → +20 % de daño de ese elemento, `-100` → el doble).
+
+**Límites**: el valor final de cada atributo (después de sumar todo el equipo y los modificadores) se recorta a estos rangos: **ataque `0` a `1000`**, **resistencia `-100` a `80`**. Lo que se pase del límite no cuenta.
 
 Los 13 elementos se calculan de forma **independiente** (cada uno contra el 100 % del daño original) y después se **suman**. Si sumás los valores de ataque de tus 13 elementos y **no llegan a 100**, la diferencia se agrega aparte como daño sin tipo, que **no pasa por ninguna resistencia** — así que si a un mob solo le ponés `fire = 30` y nada más, el otro 70 % del golpe va a ignorar todas las resistencias elementales de la víctima. Tenlo en cuenta al balancear.
 

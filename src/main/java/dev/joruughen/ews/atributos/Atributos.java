@@ -22,6 +22,11 @@ public class Atributos {
 
     public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, Ews.MODID);
 
+    public static final double ATAQUE_MIN = 0.0;
+    public static final double ATAQUE_MAX = 1000.0;
+    public static final double RESIST_MIN = -100.0;
+    public static final double RESIST_MAX = 80.0;
+
     private static final Map<Elemento, RegistryObject<Attribute>> DAMAGE = new EnumMap<>(Elemento.class);
     private static final Map<Elemento, RegistryObject<Attribute>> RESIST = new EnumMap<>(Elemento.class);
     private static final Map<ResourceLocation, Elemento> POR_ID = new HashMap<>();
@@ -29,9 +34,9 @@ public class Atributos {
     static {
         for (Elemento elemento : Elemento.values()) {
             DAMAGE.put(elemento, ATTRIBUTES.register(elemento.id(),
-                    () -> (new RangedAttribute(Ews.MODID + "." + elemento.id(), 0.0, 0.0, Double.MAX_VALUE)).setSyncable(true)));
+                    () -> (new RangedAttribute(Ews.MODID + "." + elemento.id(), 0.0, ATAQUE_MIN, ATAQUE_MAX)).setSyncable(true)));
             RESIST.put(elemento, ATTRIBUTES.register(elemento.id() + "_resist",
-                    () -> (new RangedAttribute(Ews.MODID + "." + elemento.id() + "_resist", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE)).setSyncable(true)));
+                    () -> (new RangedAttribute(Ews.MODID + "." + elemento.id() + "_resist", 0.0, RESIST_MIN, RESIST_MAX)).setSyncable(true)));
             POR_ID.put(new ResourceLocation(Ews.MODID, elemento.id()), elemento);
             POR_ID.put(new ResourceLocation(Ews.MODID, elemento.id() + "_resist"), elemento);
         }

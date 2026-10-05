@@ -32,9 +32,10 @@ In other words, **an element's attack value is the percentage of the hit that be
 
 That chunk of damage is then affected by the victim's **resistance** to that same element:
 
-- Resistance between `0` and `100`: reduces that percentage linearly (`resistance = 50` → half the damage of that element).
-- Resistance `> 100`: fully blocks that element (0 damage from it).
-- Negative resistance: **amplifies** that element (`resistance = -20` → +20% damage from that element).
+- Resistance between `0` and `80`: reduces that percentage linearly (`resistance = 50` → half the damage of that element). The cap is 80, so there is never total immunity.
+- Negative resistance (down to `-100`): **amplifies** that element (`resistance = -20` → +20% damage from that element, `-100` → double).
+
+**Limits**: the final value of each attribute (after summing all gear and modifiers) is clamped to these ranges: **attack `0` to `1000`**, **resistance `-100` to `80`**. Anything beyond the limit is discarded.
 
 All 13 elements are calculated **independently** (each against 100% of the original damage) and then **summed**. If the sum of your 13 attack values doesn't reach 100, the difference is added separately as untyped damage, which **bypasses all resistances** — so if a mob only has `fire = 30` and nothing else, the remaining 70% of the hit will ignore every elemental resistance the victim has. Keep this in mind when balancing.
 

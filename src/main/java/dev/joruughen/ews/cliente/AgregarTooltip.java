@@ -71,15 +71,17 @@ public class AgregarTooltip {
         ChatFormatting color = elemento != null ? elemento.color() : ChatFormatting.GRAY;
 
         String attributeName = I18n.get(attribute.getDescriptionId());
+        String claveCorta = attribute.getDescriptionId() + ".short";
+        String nombreMostrado = I18n.exists(claveCorta) ? I18n.get(claveCorta) : attributeName;
         ChatFormatting colorValor = (modificador.valor() > 0) ? ChatFormatting.BLUE : ChatFormatting.RED;
         String textoValor = modificador.operacion() == AttributeModifier.Operation.ADDITION
                 ? String.valueOf(modificador.valor())
                 : (modificador.valor() > 0 ? "+" : "") + modificador.valor() + "%";
 
-        // Remover cualquier línea que contenga el atributo antes de agregarlo
+        // Se compara con el nombre completo (el que generan vanilla/Apothic); la línea propia usa el nombre corto
         event.getToolTip().removeIf(component -> component.getString().contains(attributeName));
 
-        event.getToolTip().add(Component.literal(attributeName + ": ").withStyle(color).append(Component.literal(textoValor).withStyle(colorValor)));
+        event.getToolTip().add(Component.literal(nombreMostrado + ": ").withStyle(color).append(Component.literal(textoValor).withStyle(colorValor)));
     }
 
 }
