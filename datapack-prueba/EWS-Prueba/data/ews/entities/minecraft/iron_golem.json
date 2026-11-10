@@ -1,0 +1,45 @@
+{
+  "modifiers": [
+    {
+      "attribute": "strike",
+      "value": 100
+    },
+    {
+      "attribute": "slash_resist",
+      "value": 50
+    },
+    {
+      "attribute": "fire_resist",
+      "value": 20
+    },
+    {
+      "attribute": "holy_resist",
+      "value": -50
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "minecraft:arrow"
+      ],
+      "modifiers": [
+        {
+          "attribute": "fire_resist",
+          "value": 80
+        }
+      ]
+    },
+    {
+      "types": [
+        "#minecraft:witch_resistant_to"
+      ],
+      "mode": "add",
+      "modifiers": [
+        {
+          "attribute": "holy_resist",
+          "value": 30
+        }
+      ]
+    }
+  ]
+}

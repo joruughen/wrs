@@ -1,0 +1,21 @@
+{
+  "modifiers": [
+    {
+      "attribute": "slash",
+      "value": 100
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "minecraft:mob_attack"
+      ],
+      "modifiers": [
+        {
+          "attribute": "strike",
+          "value": 100
+        }
+      ]
+    }
+  ]
+}

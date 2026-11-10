@@ -1,0 +1,42 @@
+{
+  "modifiers": [
+    {
+      "attribute": "fire_resist",
+      "value": 10,
+      "slots": [
+        "chest"
+      ]
+    },
+    {
+      "attribute": "slash_resist",
+      "value": 30,
+      "slots": [
+        "chest"
+      ]
+    },
+    {
+      "attribute": "nature_resist",
+      "value": 50,
+      "slots": [
+        "chest"
+      ]
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "#minecraft:is_fire"
+      ],
+      "mode": "add",
+      "modifiers": [
+        {
+          "attribute": "fire_resist",
+          "value": 30,
+          "slots": [
+            "chest"
+          ]
+        }
+      ]
+    }
+  ]
+}

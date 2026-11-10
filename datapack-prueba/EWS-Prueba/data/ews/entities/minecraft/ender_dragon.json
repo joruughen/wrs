@@ -1,0 +1,51 @@
+{
+  "modifiers": [
+    {
+      "attribute": "eldritch",
+      "value": 100
+    },
+    {
+      "attribute": "ender_resist",
+      "value": 80
+    },
+    {
+      "attribute": "fire_resist",
+      "value": -20
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "minecraft:mob_attack"
+      ],
+      "modifiers": [
+        {
+          "attribute": "slash",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "types": [
+        "minecraft:indirect_magic"
+      ],
+      "modifiers": [
+        {
+          "attribute": "aqua",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "types": [
+        "#minecraft:is_projectile"
+      ],
+      "modifiers": [
+        {
+          "attribute": "fire_resist",
+          "value": 60
+        }
+      ]
+    }
+  ]
+}

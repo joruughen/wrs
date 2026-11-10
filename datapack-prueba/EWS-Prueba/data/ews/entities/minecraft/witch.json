@@ -1,0 +1,22 @@
+{
+  "modifiers": [
+    {
+      "attribute": "aqua",
+      "value": 100
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "minecraft:indirect_magic",
+        "minecraft:magic"
+      ],
+      "modifiers": [
+        {
+          "attribute": "fire",
+          "value": 100
+        }
+      ]
+    }
+  ]
+}

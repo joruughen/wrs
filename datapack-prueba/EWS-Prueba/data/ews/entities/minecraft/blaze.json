@@ -1,0 +1,32 @@
+{
+  "modifiers": [
+    {
+      "attribute": "strike",
+      "value": 100
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "#minecraft:is_projectile"
+      ],
+      "modifiers": [
+        {
+          "attribute": "pierce",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "types": [
+        "minecraft:fireball"
+      ],
+      "modifiers": [
+        {
+          "attribute": "fire",
+          "value": 100
+        }
+      ]
+    }
+  ]
+}

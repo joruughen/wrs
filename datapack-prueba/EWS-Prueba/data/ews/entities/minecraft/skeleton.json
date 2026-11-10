@@ -1,0 +1,32 @@
+{
+  "modifiers": [
+    {
+      "attribute": "slash",
+      "value": 100
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "#minecraft:is_projectile"
+      ],
+      "modifiers": [
+        {
+          "attribute": "pierce",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "types": [
+        "minecraft:arrow"
+      ],
+      "modifiers": [
+        {
+          "attribute": "fire_resist",
+          "value": 50
+        }
+      ]
+    }
+  ]
+}

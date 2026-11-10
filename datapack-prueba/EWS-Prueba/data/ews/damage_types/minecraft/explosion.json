@@ -1,0 +1,7 @@
+{
+  "damage": {
+    "strike": 50,
+    "fire": 50
+  },
+  "special": true
+}

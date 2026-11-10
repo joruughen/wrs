@@ -94,6 +94,13 @@
     "ews.debug.damage_type": "Tipo de Daño: %s",
     "ews.debug.attacker": "Atacante: %s",
     "ews.debug.target": "Objetivo: %s",
+    "ews.debug.attack_profile": "Perfil de ataque: %s",
+    "ews.debug.resist_profile": "Perfil de resistencia: %s",
+    "ews.tooltip.rule": "Con daño %s:",
+    "ews.tooltip.rule_add": "Con daño %s (extra):",
+    "ews.tooltip.weapon_mode.add": "(el arma suma)",
+    "ews.tooltip.weapon_mode.share": "(reparte con el arma)",
+    "ews.tooltip.weapon_mode.weapon": "(el arma reemplaza)",
     "ews.key.show_defenses": "Mostrar Defensas",
     "ews.key.gui": "EWS"
 }

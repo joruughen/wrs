@@ -20,12 +20,12 @@ public enum Elemento {
     FIRE("fire", ChatFormatting.GOLD, AtributosData::getFire, () -> potion(Items.LINGERING_POTION, "minecraft:healing")),
     ICE("ice", ChatFormatting.DARK_AQUA, AtributosData::getIce, () -> potion(Items.LINGERING_POTION, "minecraft:long_swiftness")),
     LIGHTNING("lightning", ChatFormatting.AQUA, AtributosData::getLightning, () -> potion(Items.LINGERING_POTION, "minecraft:long_fire_resistance")),
-    AQUA("aqua", ChatFormatting.BLUE, AtributosData::getAqua, () -> new ItemStack(Items.WATER_BUCKET)),
-    HOLY("holy", ChatFormatting.YELLOW, AtributosData::getHoly, () -> potion(Items.LINGERING_POTION, "minecraft:invisibility")),
-    ENDER("ender", ChatFormatting.DARK_PURPLE, AtributosData::getEnder, () -> new ItemStack(Items.ENDER_PEARL)),
-    BLOOD("blood", ChatFormatting.DARK_RED, AtributosData::getBlood, () -> new ItemStack(Items.REDSTONE)),
-    EVOCATION("evocation", ChatFormatting.GRAY, AtributosData::getEvocation, () -> new ItemStack(Items.ENCHANTED_BOOK)),
     NATURE("nature", ChatFormatting.GREEN, AtributosData::getNature, () -> new ItemStack(Items.OAK_SAPLING)),
+    AQUA("aqua", ChatFormatting.BLUE, AtributosData::getAqua, () -> new ItemStack(Items.WATER_BUCKET)),
+    EVOCATION("evocation", ChatFormatting.GRAY, AtributosData::getEvocation, () -> new ItemStack(Items.ENCHANTED_BOOK)),
+    HOLY("holy", ChatFormatting.YELLOW, AtributosData::getHoly, () -> potion(Items.LINGERING_POTION, "minecraft:invisibility")),
+    BLOOD("blood", ChatFormatting.DARK_RED, AtributosData::getBlood, () -> new ItemStack(Items.REDSTONE)),
+    ENDER("ender", ChatFormatting.DARK_PURPLE, AtributosData::getEnder, () -> new ItemStack(Items.ENDER_PEARL)),
     ELDRITCH("eldritch", ChatFormatting.DARK_GREEN, AtributosData::getEldritch, () -> new ItemStack(Items.SCULK));
 
     private final String id;

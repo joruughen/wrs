@@ -1,12 +1,13 @@
 package dev.joruughen.ews.eventos;
 
 import dev.joruughen.ews.Ews;
-import dev.joruughen.ews.atributos.Atributos;
 import dev.joruughen.ews.atributos.Elemento;
-import dev.joruughen.ews.data.DataLoaderEvent;
+import dev.joruughen.ews.atributos.PerfilElemental;
 import dev.joruughen.ews.data.DamageTypeData;
+import dev.joruughen.ews.data.DataLoaderEvent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -27,64 +28,52 @@ public class CalcularDamage {
         LivingEntity victima = event.getEntity();
         if (victima == null) return;
 
+        DamageSource source = event.getSource();
+
         // La fuente de daño no siempre es una entidad viviente (ej. TNT, cactus): evitamos el ClassCastException.
-        LivingEntity atacante = event.getSource().getEntity() instanceof LivingEntity fuente ? fuente : null;
+        LivingEntity atacante = source.getEntity() instanceof LivingEntity fuente ? fuente : null;
+        if (atacante != null && source.isIndirect() && source.getDirectEntity() instanceof LivingEntity atacanteDirecto) {
+            atacante = atacanteDirecto;
+        }
 
         float damageOriginal = event.getAmount();
-        double atributosMinimos = 100;
 
-        ResourceKey<DamageType> damageTypeResourceKey = event.getSource().typeHolder().unwrapKey().orElse(null);
+        ResourceKey<DamageType> damageTypeResourceKey = source.typeHolder().unwrapKey().orElse(null);
         ResourceLocation damagetype = damageTypeResourceKey != null ? damageTypeResourceKey.location() : null;
 
         DamageTypeData dataDamage = damagetype != null ? DataLoaderEvent.DAMAGE_TYPES.getData().get(damagetype) : null;
         boolean especial = dataDamage != null && dataDamage.special();
 
-        Map<Elemento, Double> desglose = new EnumMap<>(Elemento.class);
-        double damageModificado;
-
+        // Perfil de ataque: damage_types "special" > atacante (con sus reglas por damage type) > damage_types normal
+        PerfilElemental.Resultado ataque;
         if (atacante != null && !especial) {
-
-            if (event.getSource().isIndirect() && event.getSource().getDirectEntity() instanceof LivingEntity atacanteDirecto) {
-                atacante = atacanteDirecto;
-            }
-
-            for (Elemento elemento : Elemento.values()) {
-                double ataqueValor = atacante.getAttributeValue(Atributos.damage(elemento));
-                double defensaValor = victima.getAttributeValue(Atributos.resist(elemento));
-                desglose.put(elemento, calcularDamage(ataqueValor, defensaValor, damageOriginal));
-            }
-
-            damageModificado = desglose.values().stream().mapToDouble(Double::doubleValue).sum();
-
-            atributosMinimos = atributosMinimos - Atributos.atributosTotales(atacante);
-
-            if (atributosMinimos > 0) {
-                damageModificado = damageModificado + (damageOriginal * (atributosMinimos / 100));
-            }
-
-            event.setAmount((float) damageModificado);
+            ataque = PerfilElemental.ataque(atacante, source);
+        } else if (dataDamage != null) {
+            ataque = PerfilElemental.desdeDamageType(dataDamage, damagetype);
         } else {
-
-            if (dataDamage == null) return;
-
-            for (Elemento elemento : Elemento.values()) {
-                double ataqueValor = elemento.valorEn(dataDamage.damage());
-                double defensaValor = victima.getAttributeValue(Atributos.resist(elemento));
-                desglose.put(elemento, calcularDamage(ataqueValor, defensaValor, damageOriginal));
-            }
-
-            damageModificado = desglose.values().stream().mapToDouble(Double::doubleValue).sum();
-
-            atributosMinimos = atributosMinimos - Atributos.atributosTotales(dataDamage);
-
-            if (atributosMinimos > 0) {
-                damageModificado = damageModificado + (damageOriginal * (atributosMinimos / 100));
-            }
-
-            event.setAmount((float) damageModificado);
+            return;
         }
 
-        MostrarCalculo.obtenerDatos(damageOriginal, desglose, damageModificado, damagetype, atacante, victima);
+        // Las resistencias de la víctima (con sus reglas por damage type) se aplican en todos los casos
+        PerfilElemental.Resultado resistencia = PerfilElemental.resistencia(victima, source);
+
+        Map<Elemento, Double> desglose = new EnumMap<>(Elemento.class);
+        for (Elemento elemento : Elemento.values()) {
+            desglose.put(elemento, calcularDamage(ataque.valor(elemento), resistencia.valor(elemento), damageOriginal));
+        }
+
+        double damageModificado = desglose.values().stream().mapToDouble(Double::doubleValue).sum();
+
+        // Si el perfil de ataque no llega a 100, el resto del golpe entra como daño sin tipo (sin resistencias)
+        double atributosMinimos = 100 - ataque.total();
+        if (atributosMinimos > 0) {
+            damageModificado = damageModificado + (damageOriginal * (atributosMinimos / 100));
+        }
+
+        event.setAmount((float) damageModificado);
+
+        MostrarCalculo.obtenerDatos(damageOriginal, desglose, damageModificado, damagetype, atacante, victima,
+                ataque.descripcion(), resistencia.descripcion());
     }
 
     public static double calcularDamage(double ataqueValor, double defensaValor, float damageOriginal) {

@@ -1,0 +1,22 @@
+{
+  "modifiers": [
+    {
+      "attribute": "ice",
+      "value": 50
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "#minecraft:is_projectile"
+      ],
+      "mode": "add",
+      "modifiers": [
+        {
+          "attribute": "pierce",
+          "value": 50
+        }
+      ]
+    }
+  ]
+}

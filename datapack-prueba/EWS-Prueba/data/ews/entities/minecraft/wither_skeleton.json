@@ -1,0 +1,9 @@
+{
+  "modifiers": [
+    {
+      "attribute": "blood",
+      "value": 100
+    }
+  ],
+  "weapon_mode": "share"
+}

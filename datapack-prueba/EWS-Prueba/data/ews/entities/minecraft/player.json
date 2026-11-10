@@ -1,0 +1,15 @@
+{
+  "damage_types": [
+    {
+      "types": [
+        "minecraft:indirect_magic"
+      ],
+      "modifiers": [
+        {
+          "attribute": "holy",
+          "value": 100
+        }
+      ]
+    }
+  ]
+}

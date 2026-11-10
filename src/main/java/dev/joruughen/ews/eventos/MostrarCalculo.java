@@ -28,11 +28,13 @@ public class MostrarCalculo {
     private static ResourceLocation damageType;
     private static LivingEntity origenAtacante;
     private static LivingEntity origenVictima;
+    private static String perfilAtaque;
+    private static String perfilResistencia;
 
     @SubscribeEvent
     public static void onLivingHurt(LivingDamageEvent event) {
 
-        if (Config.debug) {
+        if (Config.debugDamage || Config.debugInfo) {
             if (event.getSource().getEntity() instanceof ServerPlayer atacante) {
                 mostrar(atacante, false);
             }
@@ -40,14 +42,15 @@ public class MostrarCalculo {
             if (event.getEntity() instanceof ServerPlayer victima) {
 
                 if (damageOriginal == 0) {
-                    String noDataType = new ResourceLocation(event.getSource().getMsgId().toLowerCase(Locale.ROOT)).toString();
+                    if (Config.debugInfo) {
+                        String noDataType = new ResourceLocation(event.getSource().getMsgId().toLowerCase(Locale.ROOT)).toString();
 
-                    victima.sendSystemMessage(Component.translatable(Ews.MODID + ".no_data", noDataType)
-                            .withStyle(ChatFormatting.WHITE));
-                    return;
+                        victima.sendSystemMessage(Component.translatable(Ews.MODID + ".no_data", noDataType)
+                                .withStyle(ChatFormatting.WHITE));
+                    }
+                } else {
+                    mostrar(victima, true);
                 }
-
-                mostrar(victima, true);
             }
         }
 
@@ -57,19 +60,37 @@ public class MostrarCalculo {
         damageType = null;
         origenAtacante = null;
         origenVictima = null;
+        perfilAtaque = null;
+        perfilResistencia = null;
 
     }
 
     private static void mostrar(ServerPlayer jugador, boolean esVictima) {
-        mensaje(jugador, Ews.MODID + ".initial_damage", damageOriginal, ChatFormatting.GREEN);
-        for (Elemento elemento : Elemento.values()) {
-            mensaje(jugador, Ews.MODID + ".value." + elemento.id(), desglose.getOrDefault(elemento, 0.0), elemento.color());
+        if (Config.debugDamage) {
+            mensaje(jugador, Ews.MODID + ".initial_damage", damageOriginal, ChatFormatting.GREEN);
+            for (Elemento elemento : Elemento.values()) {
+                double valor = desglose.getOrDefault(elemento, 0.0);
+                if (valor != 0) {
+                    mensaje(jugador, Ews.MODID + ".value." + elemento.id(), valor, elemento.color());
+                }
+            }
+            mensaje(jugador, Ews.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
         }
-        mensaje(jugador, Ews.MODID + ".final_damage", damageModificado, ChatFormatting.GREEN);
+
+        if (!Config.debugInfo) return;
 
         jugador.sendSystemMessage(Component.translatable(Ews.MODID + ".debug.damage_type",
                         damageType != null ? damageType.toString() : "?")
                 .withStyle(ChatFormatting.AQUA));
+
+        if (perfilAtaque != null) {
+            jugador.sendSystemMessage(Component.translatable(Ews.MODID + ".debug.attack_profile", perfilAtaque)
+                    .withStyle(ChatFormatting.AQUA));
+        }
+        if (perfilResistencia != null) {
+            jugador.sendSystemMessage(Component.translatable(Ews.MODID + ".debug.resist_profile", perfilResistencia)
+                    .withStyle(ChatFormatting.AQUA));
+        }
 
         if (esVictima) {
             if (origenAtacante != null) {
@@ -83,7 +104,10 @@ public class MostrarCalculo {
     }
 
     public static void obtenerDatos(float damageOriginal, Map<Elemento, Double> desglose, double damageModificado,
-                                     ResourceLocation damageType, LivingEntity atacante, LivingEntity victima) {
+                                     ResourceLocation damageType, LivingEntity atacante, LivingEntity victima,
+                                     String perfilAtaque, String perfilResistencia) {
+        MostrarCalculo.perfilAtaque = perfilAtaque;
+        MostrarCalculo.perfilResistencia = perfilResistencia;
         MostrarCalculo.damageOriginal = damageOriginal;
         MostrarCalculo.desglose = desglose;
         MostrarCalculo.damageModificado = damageModificado;

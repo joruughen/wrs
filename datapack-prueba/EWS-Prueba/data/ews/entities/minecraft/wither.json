@@ -1,0 +1,21 @@
+{
+  "modifiers": [
+    {
+      "attribute": "eldritch",
+      "value": 100
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "minecraft:wither_skull"
+      ],
+      "modifiers": [
+        {
+          "attribute": "blood",
+          "value": 100
+        }
+      ]
+    }
+  ]
+}

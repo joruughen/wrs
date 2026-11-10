@@ -36,20 +36,8 @@ public class AgregarAtributosEntidad {
             return;
         }
 
-        AtributosDataType dataGrupo = DataLoaderEvent.GROUPS.getData().get(entityId);
-        AtributosDataType dataEntidad = DataLoaderEvent.ENTITIES.getData().get(entityId);
-
-        AtributosDataType resultado;
-
-        if (dataGrupo == null){
-            if (dataEntidad == null){
-                return;
-            }else resultado = dataEntidad;
-        }else resultado = dataGrupo;
-
-        if (dataGrupo != null && dataEntidad != null) {
-            resultado = AtributosDataType.reemplazarValores(dataGrupo, dataEntidad);
-        }
+        AtributosDataType resultado = DataLoaderEvent.datosEntidad(entityId);
+        if (resultado == null) return;
 
         Map<Attribute, Double> atributosMap = Atributos.valoresBase(resultado);
 

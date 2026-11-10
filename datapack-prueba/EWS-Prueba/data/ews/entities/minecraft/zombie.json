@@ -1,0 +1,9 @@
+{
+  "modifiers": [
+    {
+      "attribute": "slash",
+      "value": 100
+    }
+  ],
+  "weapon_mode": "weapon"
+}

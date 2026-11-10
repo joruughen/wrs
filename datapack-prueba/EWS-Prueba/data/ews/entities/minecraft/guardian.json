@@ -1,0 +1,32 @@
+{
+  "modifiers": [
+    {
+      "attribute": "aqua",
+      "value": 100
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "minecraft:indirect_magic"
+      ],
+      "modifiers": [
+        {
+          "attribute": "lightning",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "types": [
+        "minecraft:thorns"
+      ],
+      "modifiers": [
+        {
+          "attribute": "pierce",
+          "value": 100
+        }
+      ]
+    }
+  ]
+}

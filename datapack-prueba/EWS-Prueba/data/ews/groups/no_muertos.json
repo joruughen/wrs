@@ -1,0 +1,28 @@
+{
+  "ids": [
+    "minecraft:zombie",
+    "minecraft:husk",
+    "minecraft:skeleton",
+    "minecraft:stray"
+  ],
+  "modifiers": [
+    {
+      "attribute": "holy_resist",
+      "value": -50
+    }
+  ],
+  "damage_types": [
+    {
+      "types": [
+        "minecraft:arrow"
+      ],
+      "mode": "add",
+      "modifiers": [
+        {
+          "attribute": "fire_resist",
+          "value": -40
+        }
+      ]
+    }
+  ]
+}
